@@ -97,6 +97,5 @@ ToDo
 [ ] Add dinamic angular resources
 [ ] Add read-only api endpoints if is not auth
 [ ] Add filterts to RESTful dinamic creation
-[ ] Resolve bootstrap theme selection
 [ ] Add socket io
 `````
