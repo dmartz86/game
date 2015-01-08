@@ -1,0 +1,27 @@
+{
+  "name": "deck",
+  "version": "1.0.0",
+  "description": "Simple aplication with mpill",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Daniel Martinez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.6",
+    "jade": "^1.8.2",
+    "mpill": "*",
+    "restify": "^2.8.4"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-imagemin": "*",
+    "gulp-jshint": "*",
+    "gulp-minify-css": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "*",
+    "readable-stream": "^1.0.33"
+  }
+}

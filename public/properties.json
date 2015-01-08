@@ -1,0 +1,38 @@
+{
+  "app": {
+    "name": "WebApp"
+  },
+  "themes": [
+    { "name": "Cerulean",
+      "css": "http://bootswatch.com/cerulean/bootstrap.min.css" },
+    { "name": "Cosmo",
+      "css": "http://bootswatch.com/cosmo/bootstrap.min.css" },
+    { "name": "Cyborg",
+      "css": "http://bootswatch.com/cyborg/bootstrap.min.css" },
+    { "name": "Darkly",
+      "css": "http://bootswatch.com/darkly/bootstrap.min.css" },
+    { "name": "Flatly",
+      "css": "http://bootswatch.com/flatly/bootstrap.min.css" },
+    { "name": "Journal",
+      "css": "http://bootswatch.com/journal/bootstrap.min.css" },
+    { "name": "Lumen",
+      "css": "http://bootswatch.com/lumen/bootstrap.min.css" },
+    { "name": "Paper",
+      "css": "http://bootswatch.com/paper/bootstrap.min.css" },
+    { "name": "Readable",
+      "css": "http://bootswatch.com/readable/bootstrap.min.css" },
+    { "name": "Sandstone",
+      "css": "http://bootswatch.com/sandstone/bootstrap.min.css" },
+    { "name": "Simplex",
+      "css": "http://bootswatch.com/simplex/bootstrap.min.css" },
+    { "name": "Slate",
+      "css": "http://bootswatch.com/slate/bootstrap.min.css" },
+    { "name": "Spacelab",
+      "css": "http://bootswatch.com/spacelab/bootstrap.min.css" },
+    { "name": "Superhero",
+      "css": "http://bootswatch.com/superhero/bootstrap.min.css" },
+    { "name": "United",
+      "css": "http://bootswatch.com/united/bootstrap.min.css" },
+    { "name": "Yeti",
+      "css": "http://bootswatch.com/yeti/bootstrap.min.css" } ]
+}

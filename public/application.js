@@ -1,0 +1,3 @@
+var app=angular.module("WebApp",["ng","ngResource"]);
+app.controller("ListCtrl",["$scope","$http",function(){}]);
+app.controller("NavBarCtrl",["$scope","$http",function(e,t){e.themes=[],tbase="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css",theme=window.localStorage.getItem("theme"),e.theme=null==theme?tbase:theme,t.get("/properties.json").success(function(t){"InternalError"!=t.code&&(e.appname=t.app.name,e.themes=t.themes)}).error(function(e){console.log(e)}),e.setTheme=function(t){e.theme=t.css,localStorage.setItem("theme",t.css)}}]);

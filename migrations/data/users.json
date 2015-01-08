@@ -1,0 +1,19 @@
+{
+  "a": {
+    "email": "pgreen@monoapps.co",
+    "name": "parakeet green"  
+  },
+  "b": {
+    "email": "cwhite@monoapps.co",
+    "name": "white cat"
+  },
+   "c": {
+    "email": "pgray@monoapps.co",
+    "name": "plant gray"
+  },
+  "d": {
+    "email": "lblue@monoapps.co",
+    "name": "leaf blue"
+  }
+}
+

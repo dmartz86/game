@@ -1,0 +1,18 @@
+{
+  "dburl": "mongodb://127.0.0.1/cmodels",
+  "port": {
+    "web": 1344,
+    "api": 1345
+  },
+  "APIVARS": {
+    "PRE": "/",
+    "ID": "/:id"
+  },
+  "resources": {
+    "tokens":  { "param": "token", "exclude": true },
+    "users":  { "param": "user" },
+    "groups": { "param": "group" },
+    "roles":  { "param": "role" },
+    "tasks":  { "param": "task" }
+  }
+}
