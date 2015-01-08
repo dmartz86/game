@@ -1,5 +1,6 @@
 {
   "name": "deck",
+  "private": "true",
   "version": "1.0.0",
   "description": "Simple aplication with mpill",
   "main": "app.js",
