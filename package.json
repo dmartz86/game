@@ -2,7 +2,7 @@
   "name": "deck",
   "private": "true",
   "version": "1.0.0",
-  "description": "Simple aplication with mpill",
+  "description": "MPill implementation",
   "main": "app.js",
   "scripts": {
     "test": "mocha"
