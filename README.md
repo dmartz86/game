@@ -95,7 +95,6 @@ ToDo
 ===
 `````text
 [ ] Add dinamic angular resources
-[ ] Add dinamic menu
 [ ] Add read-only api endpoints if is not auth
 [ ] Add filterts to RESTful dinamic creation
 [ ] Resolve bootstrap theme selection
