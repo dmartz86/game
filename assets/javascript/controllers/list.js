@@ -1,3 +1,3 @@
-app.controller('ListCtrl',['$scope', '$http', function Catalog($scope, $http) {
+app.controller('ListCtrl',['$scope', '$http', function($scope, $http) {
 
 }]);
