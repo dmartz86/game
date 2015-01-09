@@ -1,8 +1,10 @@
 {
-  "dburl": "mongodb://127.0.0.1/cmodels",
+  "dburl": "mongodb://127.0.0.1/decktools",
   "port": {
     "web": 1344,
-    "api": 1345
+    "api": 1345,
+    "sio": 1346,
+    "rds": 6379
   },
   "APIVARS": {
     "PRE": "/",
