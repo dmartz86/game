@@ -11,15 +11,25 @@ var srcmap = require('gulp-sourcemaps');
 var scripts = [
   './helpers/*.js',
   './api/*.js',
-  './*.js'
+  './*.js',
+  'assets/javascript/*',
+  'assets/javascript/services/*.js',
+  'assets/javascript/controllers/*.js'
 ];
 var jsng = [
   'assets/javascript/app.js',
+  'assets/javascript/services/*.js',
   'assets/javascript/controllers/*.js'
 ];
 var vendorScripts = [];
 var styles = [];
 var images = [];
+
+gulp.task('lint', function() {
+  gulp.src(scripts)
+  .pipe(jshint())
+  .pipe(jshint.reporter('default'));
+});
 
 gulp.task('minify', function(){
   gulp.src(jsng)
@@ -30,11 +40,11 @@ gulp.task('minify', function(){
   .pipe(gulp.dest('./public/'));
 });
 
-gulp.task('lint', function() {
-  gulp.src(scripts)
-  .pipe(jshint())
-  .pipe(jshint.reporter('default'));
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+  gulp.watch(scripts, ['lint']);
+  gulp.watch(jsng, ['minify']);
 });
 
 // Default
-gulp.task('default', ['lint', 'minify']);
+gulp.task('default', ['watch', 'lint', 'minify']);
