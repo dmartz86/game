@@ -1,0 +1,8 @@
+.models(ng-controller="ListCtrl")
+  .well(ng-if='model')
+    h3(ng-bind='"List for " + model')
+    .row
+      div(ng-repeat='f in feed')
+        code.col-md-10 {{f}}
+        a.col-md-1.btn.btn-primary
+          i.glyphicon.glyphicon-pencil

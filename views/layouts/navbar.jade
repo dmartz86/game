@@ -16,19 +16,11 @@
           | Resources 
           b.caret
         ul.dropdown-menu
-          li(ng-repeat='r in resources')
-            a(ng-click='setResource(r)')
-              span(ng-bind='r')
-          li.divider
-          li.dropdown-header Dropdown header
-          li
-            a(href='#') Separated link
-          li
-            a(href='#') One more separated link
-      li
-        a(ng-bind='resource')
-    form.navbar-form.navbar-left
-      input.form-control.col-lg-8(type='text', placeholder='Search')
+          li(ng-repeat='resource in resources')
+            a(ng-click='setResource(resource)', ng-bind='resource')
+
+    form.navbar-form.navbar-left(ng-if='resource')
+      input.form-control.col-lg-8(type='text', placeholder='Search in {{resource}}')
     ul.nav.navbar-nav.navbar-right
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
