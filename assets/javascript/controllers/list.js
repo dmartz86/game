@@ -2,6 +2,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
 
   var resources = [];
   $scope.model = false;
+  $scope.search = '';
   $scope.feed = [];
 
   var getList = function(model){
@@ -23,6 +24,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     var hash = getHash().replace('#','');
     if (hash){
       getList(hash);
+      $rootScope.$emit('load:param', hash);
     }
   });
 
@@ -30,6 +32,11 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     getList(data);
     location.hash = data;
     console.log('change:model');
+  });
+   
+  $rootScope.$on('watch:search', function (event, data) {
+    $scope.search = data;
+    console.log('watch:search');
   });
   
   var getHash = function(){

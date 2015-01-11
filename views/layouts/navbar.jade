@@ -9,9 +9,7 @@
     a.navbar-brand(href='#') Deck tools
   .navbar-collapse.collapse.navbar-responsive-collapse
     ul.nav.navbar-nav
-      li.active
-        a(href='#home') Home
-      li.dropdown
+      li.dropdown.active
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Resources 
           b.caret
@@ -20,7 +18,7 @@
             a(ng-click='setResource(resource)', ng-bind='resource')
 
     form.navbar-form.navbar-left(ng-if='resource')
-      input.form-control.col-lg-8(type='text', placeholder='Search in {{resource}}')
+      input.form-control.col-lg-8(ng-model="$parent.search", type='text', placeholder='Search in {{resource}}')
     ul.nav.navbar-nav.navbar-right
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
