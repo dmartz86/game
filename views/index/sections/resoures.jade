@@ -1,8 +1,13 @@
 div(ng-if='model')
-  h3(ng-bind='$parent.filter')
+  h1(ng-bind='$parent.model + " feed"')
   .row
-    div(ng-repeat='f in $parent.feed | filter:search')
+    div(ng-repeat='f in $parent.feed | filter:$parent.search')
       pre.col-md-10
         code(class="language-js") {{f}}
       a.col-md-1.btn.btn-primary
         i.glyphicon.glyphicon-pencil
+      a.col-md-1.btn.btn-danger
+        i.glyphicon.glyphicon-trash
+    .col-md-12.text-center(ng-if='!$parent.feed.length')
+      h4 There are not items.
+      
