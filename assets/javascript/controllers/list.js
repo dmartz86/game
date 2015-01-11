@@ -1,5 +1,6 @@
 app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
+  var resources = [];
   $scope.model = false;
   $scope.feed = [];
 
@@ -17,16 +18,30 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   };
 
   $rootScope.$on('load:resources', function (event, data) {
-    console.log('load:resources event');
+    resources = data;
+    console.log('load:resources');
+    var hash = getHash().replace('#','');
+    if (hash){
+      getList(hash);
+    }
   });
 
   $rootScope.$on('change:model', function (event, data) {
     getList(data);
+    location.hash = data;
+    console.log('change:model');
   });
   
   var getHash = function(){
-    var hashes = location.hash.match(new RegExp('(W|^)(#choises|#products|#catalogs)(W|$)'));
+    var words = '';
+    for(var r in resources){
+      words = words + '#' + resources[r];
+      if(resources.length-1 != r){
+        words = words + '|';
+      }
+    }
+    var hashes = location.hash.match(new RegExp('(W|^)('+ words +')(W|$)'));
     if(hashes){return hashes[0];}else{return false;}
   };
-  
+
 }]);

@@ -32,7 +32,7 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http',  function($scope, $
     if(data.code != "InternalError"){
       $scope.resources = data.resources;
       $scope.themes = data.themes;
-      $rootScope.$emit('load:resources', data);
+      $rootScope.$emit('load:resources', data.resources);
     }
   })
   .error(function(data, status, headers, config) {
