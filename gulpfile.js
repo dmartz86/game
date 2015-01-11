@@ -3,7 +3,7 @@ var gulp   = require('gulp');
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-//var mincss = require('gulp-minify-css');
+var mincss = require('gulp-minify-css');
 //var minimg = require('gulp-imagemin');
 var srcmap = require('gulp-sourcemaps');
 
@@ -22,7 +22,7 @@ var jsng = [
   'assets/javascript/controllers/*.js'
 ];
 var vendorScripts = [];
-var styles = [];
+var styles = ['assets/styles/*.css'];
 var images = [];
 
 gulp.task('lint', function() {
@@ -40,11 +40,19 @@ gulp.task('minify', function(){
   .pipe(gulp.dest('./public/'));
 });
 
-// Rerun the task when a file changes
+gulp.task('styles', function() {
+  gulp.src(styles)
+  .pipe(concat('application.css'))
+  .pipe(mincss())
+  .pipe(gulp.dest('./public/'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(scripts, ['lint']);
+  gulp.watch(jsng, ['lint']);
   gulp.watch(jsng, ['minify']);
+  gulp.watch(styles, ['styles']);
 });
 
 // Default
-gulp.task('default', ['watch', 'lint', 'minify']);
+gulp.task('default', ['watch', 'lint', 'minify', 'styles']);

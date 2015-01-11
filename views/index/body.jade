@@ -1,7 +1,8 @@
 body
   include ../layouts/navbar
-  .container
-    include sections/home
-    include sections/resoures
+  #deck
+    .container(ng-controller="ListCtrl")
+      include sections/home
+      include sections/resoures
   include ../layouts/footer
   include scripts

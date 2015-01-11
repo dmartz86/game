@@ -23,5 +23,10 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   $rootScope.$on('change:model', function (event, data) {
     getList(data);
   });
-
+  
+  var getHash = function(){
+    var hashes = location.hash.match(new RegExp('(W|^)(#choises|#products|#catalogs)(W|$)'));
+    if(hashes){return hashes[0];}else{return false;}
+  };
+  
 }]);

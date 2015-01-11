@@ -17,6 +17,7 @@ filters.schemaFilter(theUser, schema, function(err){
   else{ console.log('Pass ...'); }
 });
 ``````
+Ordering rules : INPUT, MANGLE,  OUPUT.
 
 resources
 ===
@@ -37,6 +38,15 @@ Add '"exclude": true' to prevent endpoints creation but models creation.
   "APIVARS": {
     "PRE": "/v2"
 `````
+
+seed mirgation
+===
+Add data into migrations/data/[model]
+
+`````sh
+node migrations/seed.js
+`````
+
 nginx
 ===
 Proxy pass for web '/' base and '/api'

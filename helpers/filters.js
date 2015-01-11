@@ -1,6 +1,7 @@
 // references
 var models = require('./models');
 
+// MANGLE
 // error in case property value not found.
 var matchFilter = function(target, prop, value, callback){
   if(target[prop] === value){
@@ -9,6 +10,7 @@ var matchFilter = function(target, prop, value, callback){
   callback('Value does not match.');
 };
 
+// MANGLE
 // error if schema does not match.
 var schemaFilter = function(target, schema, callback){
   for(var p in target){
@@ -19,6 +21,7 @@ var schemaFilter = function(target, schema, callback){
   callback(false);
 };
 
+// INPUT
 // returns 401 if is invalid or token and user.
 var authFilter = function(res, token_id, callback) {
   var query = {"_id": token_id};
@@ -33,7 +36,17 @@ var authFilter = function(res, token_id, callback) {
   });
 };
 
+// OUPUT
+// returns a clean object to hide of user view
+var cleanerFilter = function(target, cleaner, callback){
+  for(var c in cleaner ){
+    delete target[c];
+  }
+  callback(false, target);
+};
+
 module.exports.authFilter   = authFilter;
 module.exports.matchFilter  = matchFilter;
 module.exports.schemaFilter = schemaFilter;
+module.exports.cleanerFilter = cleanerFilter;
 
