@@ -97,6 +97,7 @@ gulp config
 We have two tasks:
   * [lint] check all javascript files
   * [minify] uglify and concat to public/application.js
+  * [styles] minify css intoapplication.css
 
 `````sh
 gulp
