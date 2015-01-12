@@ -117,6 +117,7 @@ tools
 [x] Restify
 [x] Express
 [x] MongoDB
+[x] Gulp 
 `````
 
 ToDo
@@ -126,4 +127,5 @@ ToDo
 [ ] Add read-only api endpoints if is not auth
 [ ] Add filterts to RESTful dinamic creation
 [ ] Add socket io
+[ ] Add nested models api routes
 `````
