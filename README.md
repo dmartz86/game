@@ -129,4 +129,5 @@ ToDo
 [ ] Add filterts to RESTful dinamic creation
 [ ] Add socket io
 [ ] Add nested models api routes
+[ ] Add common command line shortcuts
 `````
