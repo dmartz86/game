@@ -4,6 +4,8 @@ var(ng-init='id= #{JSON.stringify(id)}')
 div(ng-if='model && !id')
   h1(ng-bind='$parent.model + " feed"')
   .row
+    .col-md-12.text-center(ng-if='!$parent.feed.length')
+      h4 There are not items.
     div(ng-repeat='f in $parent.feed | filter:$parent.search')
       pre.col-md-10
         code(class="language-js") {{f}}
@@ -11,24 +13,29 @@ div(ng-if='model && !id')
         i.glyphicon.glyphicon-pencil
       a.col-md-1.btn.btn-danger
         i.glyphicon.glyphicon-trash
-    .col-md-12.text-center(ng-if='!$parent.feed.length')
-      h4 There are not items.
+    
 
 div(ng-if='model && id')
   h1 Edit {{model}}
-  .row
+  .row(ng-if='model==="users"')
     .col-md-3
-      a.btn.btn-primary.col-md-12(ng-repeat='f in $parent.feed')
-        span(ng-bind='f._id')
+        include ../navs/users
     .col-md-9
-      form.form-horizontal
-      fieldset
-        .form-group(ng-repeat='(k,v) in $parent.edit')
-          label.col-lg-2.control-label(for='inputEmail') {{k}}
-          .col-lg-10
-            input#inputEmail.form-control(type='text', ng-model='$parent.edit[$index]')
-        .form-group
-          .col-lg-10.col-lg-offset-2
-            button.btn.btn-default.col-lg-12(ng-click='$parent.update()') Update
-
-        
+        include ../forms/users
+  .row(ng-if='model==="roles"')
+    .col-md-3
+      include ../navs/roles
+    .col-md-9
+      include ../forms/roles
+      include ../forms/roles
+  .row(ng-if='model==="groups"')
+    .col-md-3
+      include ../navs/groups
+    .col-md-9
+      include ../forms/groups
+      include ../forms/groups
+  .row(ng-if='model==="tasks"')
+    .col-md-3
+      include ../navs/tasks
+    .col-md-9
+      include ../forms/tasks
