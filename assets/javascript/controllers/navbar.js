@@ -1,4 +1,4 @@
-app.controller('NavBarCtrl',['$scope','$rootScope', '$http' , function($scope, $rootScope, $http) {
+app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
 
   $scope.search = '';
   $scope.themes = [];
@@ -42,7 +42,7 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http' , function($scope, $
     if(data.code != "InternalError"){
       $scope.resources = data.resources;
       $scope.themes = data.themes;
-      $rootScope.$emit('load:resources', data.resources);
+      $rootScope.$emit('load:resources', data.resources || []);
     }
   })
   .error(function(data, status, headers, config) {
