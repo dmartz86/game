@@ -17,7 +17,7 @@ var addRoutes = function(api, r, controller){
   api.post(AV.PRE + r, function(req, res){
     zappy.Post(req, res);
   });
-  api.put( AV.PRE + r, function(req, res){
+  api.put( AV.PRE + r + AV.ID, function(req, res){
     zappy.Put(req, res);
   });
 };

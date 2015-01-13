@@ -30,7 +30,12 @@ Zappy.prototype.Post = function(req, res){
 };
 
 Zappy.prototype.Put = function(req, res){
-  this.cx.Update({}, function(err, rsp){
+  //TODO: filters here
+  var query = {'_id': req.params.id};
+  delete req.body._id;
+  var doc = {$set: req.body};
+  
+  this.cx.UpdateById(query, doc, function(err, rsp){
     resManager(req, res, err, rsp);
   });
 };

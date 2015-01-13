@@ -15,3 +15,5 @@ web.listen(cfg.web, function() {
   //sio.adapter(rds(data));
   //console.log('sio server up!');
 });
+
+//console.log(api.router.mounts);

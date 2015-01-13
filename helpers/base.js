@@ -33,6 +33,12 @@ CBase.prototype.Update = function(query, callback){
   });
 };
 
+CBase.prototype.UpdateById = function(query, doc, callback){
+  this.model.UpdateByObjectId(query, doc, '_id', function(err, results){
+    callback(err, results);
+  });
+};
+
 CBase.prototype.Delete = function(query, callback){
   this.model.Remove(query, function(err, results){
     callback(err, results);
