@@ -1,0 +1,18 @@
+form.form-horizontal
+  fieldset
+    .form-group
+      label.col-lg-2.control-label Name
+      .col-lg-10
+        input#inputEmail.form-control(type='text', ng-model='$parent.edit.name')
+    .form-group
+      label.col-lg-2.control-label Read-only 
+      .col-lg-10
+        pre
+          code(class="language-js") {{$parent.edit.readonly || '^'}}
+    .form-group
+      label.col-lg-2.control-label Resources
+      .col-md-10
+        pre
+          code(class="language-js") {{parent.edit.resources || '^'}}
+    include actions
+

@@ -26,6 +26,12 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
         break;
       }
     }
+    if(!$scope.edit){
+      var newpath = '/' + $scope.model + '/new';
+      if(location.pathname !== newpath){
+        location.pathname = newpath;
+      }
+    }
   };
 
   $scope.update = function(){

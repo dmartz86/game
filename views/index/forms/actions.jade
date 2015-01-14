@@ -1,0 +1,5 @@
+.form-group
+  .col-lg-10.col-lg-offset-2(ng-if='$parent.edit')
+    button.btn.btn-default.col-lg-12(ng-click='$parent.update()') Update
+  .col-lg-10.col-lg-offset-2(ng-if='!$parent.edit')
+    button.btn.btn-default.col-lg-12(ng-click='$parent.create()') Create 

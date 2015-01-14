@@ -18,4 +18,10 @@ web.get('/users/:id', function(req, res){
   );
 });
 
+web.get('/roles/:id', function(req, res){
+  res.render('index/index',
+    {model: 'roles', id: req.params.id}
+  );
+});
+
 module.exports.web =  web;

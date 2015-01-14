@@ -13,7 +13,6 @@ div(ng-if='model && !id')
         i.glyphicon.glyphicon-pencil
       a.col-md-1.btn.btn-danger
         i.glyphicon.glyphicon-trash
-    
 
 div(ng-if='model && id')
   h1 Edit {{model}}
@@ -27,12 +26,10 @@ div(ng-if='model && id')
       include ../navs/roles
     .col-md-9
       include ../forms/roles
-      include ../forms/roles
   .row(ng-if='model==="groups"')
     .col-md-3
       include ../navs/groups
     .col-md-9
-      include ../forms/groups
       include ../forms/groups
   .row(ng-if='model==="tasks"')
     .col-md-3
