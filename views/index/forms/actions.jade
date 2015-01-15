@@ -1,5 +1,9 @@
 .form-group
-  .col-lg-10.col-lg-offset-2(ng-if='$parent.edit')
-    button.btn.btn-default.col-lg-12(ng-click='$parent.update()') Update
-  .col-lg-10.col-lg-offset-2(ng-if='!$parent.edit')
-    button.btn.btn-default.col-lg-12(ng-click='$parent.create()') Create 
+  .col-lg-10.col-lg-offset-2(ng-if='$parent.edit._id')
+    a.btn.btn-default.col-lg-12(ng-click='$parent.update()', 
+      ng-disabled='$parent.modelForm.$invalid')
+      i.glyphicon.glyphicon-edit &nbsp;Update
+  .col-lg-10.col-lg-offset-2(ng-if='!$parent.edit._id')
+    a.btn.btn-default.col-lg-12(ng-click='$parent.create()', 
+      ng-disabled='$parent.modelForm.$invalid')
+      i.glyphicon.glyphicon-ok &nbsp;Create

@@ -38,6 +38,18 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     $http.put('/api/' + $scope.model + '/' + $scope.id , $scope.edit)
     .success(function(data, status, headers, config) {
       console.log(data);
+      $scope.alert = 'Message: ' + $scope.model + ' updated';
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
+    });
+  };
+
+  $scope.create = function(){
+    $http.post('/api/' + $scope.model, $scope.edit)
+    .success(function(data, status, headers, config) {
+      console.log(data);
+      $scope.alert = 'Message: ' + $scope.model + ' created';
     })
     .error(function(data, status, headers, config) {
       console.log(data);
