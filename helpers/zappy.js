@@ -1,4 +1,4 @@
-var resManager = require('./manager').response; 
+var resManager = require('./manager').response;
 
 // middleware between response and controller
 var Zappy = function(controller){
@@ -24,7 +24,7 @@ Zappy.prototype.Del = function(req, res){
 };
 
 Zappy.prototype.Post = function(req, res){
-  this.cx.Create({}, function(err, rsp){
+  this.cx.Create(req.params, function(err, rsp){
     resManager(req, res, err, rsp);
   });
 };
@@ -34,7 +34,7 @@ Zappy.prototype.Put = function(req, res){
   var query = {'_id': req.params.id};
   delete req.body._id;
   var doc = {$set: req.body};
-  
+
   this.cx.UpdateById(query, doc, function(err, rsp){
     resManager(req, res, err, rsp);
   });

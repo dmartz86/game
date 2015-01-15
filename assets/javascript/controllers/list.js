@@ -11,7 +11,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     .success(function(data, status, headers, config) {
       if(data.code != "InternalError"){
         $scope.feed = data;
-	if(cb){cb();}
+	      if(cb){cb();}
       }
     })
     .error(function(data, status, headers, config) {
@@ -45,8 +45,8 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     });
   };
 
-  $scope.create = function(){
-    $http.post('/api/' + $scope.model, $scope.edit)
+  $scope.create = function(newModel){
+    $http.post('/api/' + $scope.model, newModel)
     .success(function(data, status, headers, config) {
       console.log(data);
       $scope.alert = 'Message: ' + $scope.model + ' created';
@@ -90,7 +90,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     location.hash = data;
     console.log('change:model');
   });
-   
+
   $rootScope.$on('watch:search', function (event, data) {
     $scope.search = data;
     console.log('watch:search');

@@ -1,13 +1,13 @@
 form.form-horizontal(name="modelForm")
   fieldset
     .form-group
-      label.col-lg-2.control-label Email
-      .col-lg-10
-        input#inputEmail.form-control(required='required',
+      label.col-md-2.control-label Email
+      .col-md-10
+        input.form-control(required='required',
           type='email', ng-model='$parent.edit.email')
     .form-group
-      label.col-lg-2.control-label Name
-      .col-lg-10
-        input#inputEmail.form-control(required='required',
+      label.col-md-2.control-label Name
+      .col-md-10
+        input.form-control(required='required',
           type='text', ng-model='$parent.edit.name')
     include actions
