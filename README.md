@@ -2,6 +2,11 @@ deck tools
 ===
 Create RESTful in seconds, not weeks.
 
+status
+===
+[![Code Climate](https://codeclimate.com/github/MoNoApps/deck/badges/gpa.svg)](https://codeclimate.com/github/MoNoApps/deck)
+
+
 filters
 ===
 Filters are rules to guide data into db.
