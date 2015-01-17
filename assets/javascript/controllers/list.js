@@ -11,7 +11,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     .success(function(data, status, headers, config) {
       if(data.code != "InternalError"){
         $scope.feed = data;
-	      if(cb){cb();}
+        if(cb){cb();}
       }
     })
     .error(function(data, status, headers, config) {
@@ -48,8 +48,23 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   $scope.create = function(newModel){
     $http.post('/api/' + $scope.model, newModel)
     .success(function(data, status, headers, config) {
-      console.log(data);
       $scope.alert = 'Message: ' + $scope.model + ' created';
+      getList($scope.model, function(){
+        location = '' + data[0]._id;
+      });
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
+    });
+  };
+
+  $scope.delete = function(){
+    $http.delete('/api/' + $scope.model + '/' + $scope.id)
+    .success(function(data, status, headers, config) {
+      $scope.alert = 'Message: ' + $scope.model + ' deleted';
+      //getList($scope.model);
+      var newpath = '/' + $scope.model + '/new';
+      location.pathname = newpath;
     })
     .error(function(data, status, headers, config) {
       console.log(data);

@@ -1,2 +1,3 @@
-a.btn.btn-primary.col-md-12(ng-repeat='f in $parent.feed', ng-href='/{{model}}/{{f._id}}')
+a.btn.btn-primary.col-md-12(ng-href='/{{model}}/{{f._id}}',
+  ng-repeat='f in $parent.feed | filter:$parent.search')
   span(ng-bind='f.name')

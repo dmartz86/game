@@ -10,14 +10,9 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $r
     if(theme === null){ return tbase;  }else{ return theme; }
   };
 
-  var getResource = function(){
-    var treso = window.localStorage.getItem('resource');
-    if(treso === null){ return false;  }else{ return treso; }
-  };
-
   $scope.setTheme = function(theme){
     $scope.theme = theme.css;
-    localStorage.setItem('theme', theme.css);
+    window.localStorage.setItem('theme', theme.css);
   };
 
   $scope.setResource = function(resource){
@@ -35,7 +30,6 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $r
   });
 
   $scope.theme = getTheme();
-  $scope.resource = getResource();
 
   $http.get('/properties.json')
   .success(function(data, status, headers, config) {

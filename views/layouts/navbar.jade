@@ -14,10 +14,10 @@
           | Resources 
           b.caret
         ul.dropdown-menu
-          li(ng-repeat='resource in resources')
-            a(ng-click='setResource(resource)', ng-bind='resource')
+          li(ng-repeat='r in resources')
+            a(ng-click='setResource(r)', ng-bind='r')
 
-    form.navbar-form.navbar-left(ng-if='resource')
+    form.navbar-form.navbar-left.ng-cloack(ng-if='resource')
       input.form-control.col-lg-8(ng-model="$parent.search", type='text', placeholder='Search in {{resource}}')
     ul.nav.navbar-nav.navbar-right
       li.dropdown
@@ -25,9 +25,9 @@
           | Theme selector 
           b.caret
         ul.dropdown-menu
-          li(ng-repeat='theme in themes')
-            a(ng-click='setTheme(theme)')
-              span(ng-bind='theme.name')
+          li(ng-repeat='t in themes')
+            a(ng-click='setTheme(t)')
+              span(ng-bind='t.name')
           li.divider
           li
             a(href='#') Separated link

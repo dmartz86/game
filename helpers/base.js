@@ -33,7 +33,8 @@ CBase.prototype.Update = function(query, callback){
   });
 };
 
-CBase.prototype.UpdateById = function(query, doc, callback){
+CBase.prototype.UpdateById = function(id, doc, callback){
+  var query = {'_id': id};
   this.model.UpdateByObjectId(query, doc, '_id', function(err, results){
     callback(err, results);
   });
@@ -41,6 +42,13 @@ CBase.prototype.UpdateById = function(query, doc, callback){
 
 CBase.prototype.Delete = function(query, callback){
   this.model.Remove(query, function(err, results){
+    callback(err, results);
+  });
+};
+
+CBase.prototype.DeleteById = function(id, callback){
+  var query = {'_id': id};
+  this.model.RemoveByObjectId(query, '_id', function(err, results){
     callback(err, results);
   });
 };
