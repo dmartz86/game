@@ -1,5 +1,6 @@
 // packages
 var express = require('express');
+var generator = require('../helpers/generator');
 // vars
 var web = express();
 
@@ -18,26 +19,8 @@ web.get('/', function(req, res){
 //  );
 //});
 var resources = require('../config.json').resources;
-for(var r in resources){
-
-  web.get('/' + r , function(req, res){
-    res.render('index/index',
-      {model: r, id: req.params.id}
-    );
-  });
-
-  web.get('/' + r + '/:id', function(req, res){
-    res.render('index/index',
-      {model: r, id: req.params.id}
-    );
-  });
-
-  web.get('/' + r + '/new', function(req, res){
-    res.render('index/index',
-      {model: r, id: req.params.id}
-    );
-  });
-
+for(var route in resources){
+  generator.addView(web, route);
 }
 
 module.exports.web =  web;
