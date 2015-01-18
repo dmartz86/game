@@ -1,0 +1,8 @@
+form.form-horizontal(name="modelForm")
+  fieldset
+    .form-group
+      label.col-md-2.control-label Name
+      .col-md-10
+        input.form-control(required='required',
+          type='text', ng-model='$parent.edit.name')
+    include actions
