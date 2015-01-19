@@ -3,12 +3,16 @@ var resources = require('../config.json').resoures;
 var usersData = require('./data/users.json');
 var rolesData = require('./data/roles.json');
 
-models.users.DropDB(function(err,results){
+models.users.DropDB(function(){
   for (var u in usersData){
-    models.users.Insert(usersData[u]);
+    if(usersData.hasOwnProperty(c)){
+      models.users.Insert(usersData[u]);
+    }
   }
 
   for (var r in rolesData){
-    models.roles.Insert(rolesData[r]);
+    if(rolesData.hasOwnProperty(r)){
+      models.roles.Insert(rolesData[r]);
+    }
   }
 });

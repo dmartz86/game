@@ -4,8 +4,8 @@ var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var mincss = require('gulp-minify-css');
-//var minimg = require('gulp-imagemin');
-var srcmap = require('gulp-sourcemaps');
+// var minimg = require('gulp-imagemin');
+// var srcmap = require('gulp-sourcemaps');
 
 // vars
 var scripts = [
@@ -21,9 +21,9 @@ var jsng = [
   'assets/javascript/services/*.js',
   'assets/javascript/controllers/*.js'
 ];
-var vendorScripts = [];
+// var vendorScripts = [];
 var styles = ['assets/styles/*.css'];
-var images = [];
+// var images = [];
 
 gulp.task('lint', function() {
   gulp.src(scripts)

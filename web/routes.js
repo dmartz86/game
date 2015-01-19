@@ -20,7 +20,9 @@ web.get('/', function(req, res){
 //});
 var resources = require('../config.json').resources;
 for(var route in resources){
-  generator.addView(web, route);
+  if(resources.hasOwnProperty(route)){
+    generator.addView(web, route);
+  }
 }
 
 module.exports.web =  web;

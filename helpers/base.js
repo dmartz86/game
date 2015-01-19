@@ -14,9 +14,9 @@ CBase.prototype.GetOne = function(query, callback){
   });
 };
 
-CBase.prototype.FindById = function(id, callback){
-  var query = {'_id': id};
-  this.model.FindByObjectId(query, '_id', function(err, results){
+CBase.prototype.FindById = function(idF, callback){
+  var queryFind = {'_id': idF};
+  this.model.FindByObjectId(queryFind, '_id', function(err, results){
     callback(err, results);
   });
 };
@@ -33,9 +33,9 @@ CBase.prototype.Update = function(query, callback){
   });
 };
 
-CBase.prototype.UpdateById = function(id, doc, callback){
-  var query = {'_id': id};
-  this.model.UpdateByObjectId(query, doc, '_id', function(err, results){
+CBase.prototype.UpdateById = function(idU, doc, callback){
+  var queryUpdate = {'_id': idU};
+  this.model.UpdateByObjectId(queryUpdate, doc, '_id', function(err, results){
     callback(err, results);
   });
 };
@@ -46,9 +46,9 @@ CBase.prototype.Delete = function(query, callback){
   });
 };
 
-CBase.prototype.DeleteById = function(id, callback){
-  var query = {'_id': id};
-  this.model.RemoveByObjectId(query, '_id', function(err, results){
+CBase.prototype.DeleteById = function(idD, callback){
+  var queryDelete = {'_id': idD};
+  this.model.RemoveByObjectId(queryDelete, '_id', function(err, results){
     callback(err, results);
   });
 };

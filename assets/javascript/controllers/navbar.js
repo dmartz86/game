@@ -1,3 +1,4 @@
+var app = app || {};
 app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
 
   $scope.search = '';
@@ -32,14 +33,14 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $r
   $scope.theme = getTheme();
 
   $http.get('/properties.json')
-  .success(function(data, status, headers, config) {
-    if(data.code != "InternalError"){
+  .success(function(data, status) {
+    if(data.code !== "InternalError"){
       $scope.resources = data.resources;
       $scope.themes = data.themes;
       $rootScope.$emit('load:resources', data.resources || []);
     }
   })
-  .error(function(data, status, headers, config) {
+  .error(function(data, status) {
     console.log(data);
   });
 

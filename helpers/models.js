@@ -7,6 +7,8 @@ var resources = require("../config.json").resources;
 
 //Exports every new collection
 for(var c in resources){
-  module.exports[c] = new MPill(c, dburl);
+  if(resources.hasOwnProperty(c)){
+    module.exports[c] = new MPill(c, dburl);
+  }
 }
 

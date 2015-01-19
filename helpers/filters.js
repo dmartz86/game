@@ -14,8 +14,10 @@ var matchFilter = function(target, prop, value, callback){
 // error if schema does not match.
 var schemaFilter = function(target, schema, callback){
   for(var p in target){
-    if(!schema[p]){
-      return callback('Property ' + p + ' in target not allowed');
+    if(target.hasOwnProperty(p)){
+      if(!schema[p]){
+        return callback('Property ' + p + ' in target not allowed');
+      }
     }
   }
   callback(false);
@@ -40,7 +42,9 @@ var authFilter = function(res, token_id, callback) {
 // returns a clean object to hide of user view
 var cleanerFilter = function(target, cleaner, callback){
   for(var c in cleaner ){
-    delete target[c];
+    if(resources.hasOwnProperty(c)){
+      delete target[c];
+    }
   }
   callback(false, target);
 };

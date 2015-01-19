@@ -1,3 +1,4 @@
+var app = app || {};
 app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
   var resources = [];
@@ -8,20 +9,20 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   var getList = function(model, cb){
     $scope.model = model;
     $http.get('/api/' + model)
-    .success(function(data, status, headers, config) {
-      if(data.code != "InternalError"){
+    .success(function(data, status) {
+      if(data.code !== "InternalError"){
         $scope.feed = data;
         if(cb){cb();}
       }
     })
-    .error(function(data, status, headers, config) {
+    .error(function(data, status) {
       console.log(data);
     });
   };
 
   var getOne = function(id){
     for(var f in $scope.feed){
-      if($scope.feed[f]._id == id){
+      if($scope.feed[f]._id === id){
         $scope.edit = $scope.feed[f];
         break;
       }
@@ -36,11 +37,11 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
 
   $scope.update = function(){
     $http.put('/api/' + $scope.model + '/' + $scope.id , $scope.edit)
-    .success(function(data, status, headers, config) {
+    .success(function(data, status) {
       console.log(data);
       $scope.alert = 'Message: ' + $scope.model + ' updated';
     })
-    .error(function(data, status, headers, config) {
+    .error(function(data, status) {
       console.log(data);
     });
   };
@@ -50,10 +51,10 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     .success(function(data, status, headers, config) {
       $scope.alert = 'Message: ' + $scope.model + ' created';
       getList($scope.model, function(){
-        location = '' + data[0]._id;
+        window.location = '' + data[0]._id;
       });
     })
-    .error(function(data, status, headers, config) {
+    .error(function(data, status) {
       console.log(data);
     });
   };
@@ -66,7 +67,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
       var newpath = '/' + $scope.model + '/new';
       location.pathname = newpath;
     })
-    .error(function(data, status, headers, config) {
+    .error(function(data, status) {
       console.log(data);
     });
   };
@@ -74,11 +75,14 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   var getHash = function(){
     var words = '';
     for(var r in resources){
-      words = words + '#' + resources[r];
-      if(resources.length-1 != r){
-        words = words + '|';
+      if(resources.hasOwnProperty(r)){
+        words = words + '#' + resources[r];
+        if(resources.length-1 != r){
+          words = words + '|';
+        }
       }
     }
+
     var hashes = location.hash.match(new RegExp('(W|^)('+ words +')(W|$)'));
     if(hashes){return hashes[0];}else{return false;}
   };

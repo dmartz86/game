@@ -13,8 +13,10 @@ api.use(restify.queryParser());
 // auto generated routes
 try{
   for(var route in resources){
-    if(resources[route].exclude){ continue; }
-    generator.addRoutes(api, route, controllers[route]);
+    if (resources.hasOwnProperty(route)) {
+      if(resources[route].exclude){ continue; }
+      generator.addRoutes(api, route, controllers[route]);
+    }
   }
 }catch(e){
   console.log(e);
