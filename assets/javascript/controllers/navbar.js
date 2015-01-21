@@ -1,5 +1,4 @@
-var app = app || {};
-app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
 
   $scope.search = '';
   $scope.themes = [];
@@ -17,12 +16,11 @@ app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $r
   };
 
   $scope.setResource = function(resource){
-    $scope.resource = resource;
     $rootScope.$emit('change:model', resource);
   };
 
   $rootScope.$on('load:param', function (event, data) {
-    $scope.resource = data;
+    $scope.model = data;
     console.log('load:param');
   });
 

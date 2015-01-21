@@ -1,4 +1,6 @@
 .navbar.navbar-default(ng-controller='NavBarCtrl')
+
+  var(ng-init='model= #{JSON.stringify(model)}')
   link(rel='stylesheet', ng-href="{{theme}}")
 
   .navbar-header
@@ -6,7 +8,7 @@
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand(href='#') Deck tools
+    a.navbar-brand(href='/') Deck tools
   .navbar-collapse.collapse.navbar-responsive-collapse
     ul.nav.navbar-nav
       li.dropdown.active
@@ -17,8 +19,8 @@
           li(ng-repeat='r in resources')
             a(ng-click='setResource(r)', ng-bind='r')
 
-    form.navbar-form.navbar-left.ng-cloack(ng-if='resource')
-      input.form-control.col-lg-8(ng-model="$parent.search", type='text', placeholder='Search in {{resource}}')
+    form.navbar-form.navbar-left.ng-cloack(ng-if='model')
+      input.form-control.col-lg-8.ng-cloak(ng-model="$parent.search", type='text', placeholder='Search in {{model}}')
     ul.nav.navbar-nav.navbar-right
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')

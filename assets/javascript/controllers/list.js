@@ -1,5 +1,4 @@
-var app = app || {};
-app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
   var resources = [];
   $scope.model = false;
@@ -7,6 +6,8 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
   $scope.feed = [];
 
   var getList = function(model, cb){
+    if(!model){ return false; }
+
     $scope.model = model;
     $http.get('/api/' + model)
     .success(function(data, status) {
@@ -29,8 +30,8 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     }
     if(!$scope.edit){
       var newpath = '/' + $scope.model + '/new';
-      if(location.pathname !== newpath){
-        location.pathname = newpath;
+      if(window.location.pathname !== newpath){
+        window.location.pathname = newpath;
       }
     }
   };
@@ -51,7 +52,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     .success(function(data, status, headers, config) {
       $scope.alert = 'Message: ' + $scope.model + ' created';
       getList($scope.model, function(){
-        window.location = '' + data[0]._id;
+        window.location.pathname = '/' + $scope.model + '/' + data[0]._id;
       });
     })
     .error(function(data, status) {
@@ -65,7 +66,7 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
       $scope.alert = 'Message: ' + $scope.model + ' deleted';
       //getList($scope.model);
       var newpath = '/' + $scope.model + '/new';
-      location.pathname = newpath;
+      window.location.pathname = newpath;
     })
     .error(function(data, status) {
       console.log(data);
@@ -76,20 +77,20 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     var words = '';
     for(var r in resources){
       if(resources.hasOwnProperty(r)){
-        words = words + '#' + resources[r];
+        words = words + '/' + resources[r] + '/';
         if(resources.length-1 != r){
           words = words + '|';
         }
       }
     }
 
-    var hashes = location.hash.match(new RegExp('(W|^)('+ words +')(W|$)'));
+    var hashes = window.location.pathname.match(new RegExp('(W|^)('+ words +')(W|$)'));
     if(hashes){return hashes[0];}else{return false;}
   };
 
   $scope.setHashId = function(edit){
     console.log(edit);
-    location.hash = location.hash + '/' + edit._id;
+    window.location.pathname =  '/' + $scope.model + '/' + edit._id;
   };
 
   $rootScope.$on('load:resources', function (event, data) {
@@ -98,15 +99,14 @@ app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $ro
     var hash = getHash();
     if (hash){
       console.log('hash:'+hash);
-      hash = getHash().replace('#','');
+      hash = getHash();
       getList(hash);
       $rootScope.$emit('load:param', hash);
     }
   });
 
   $rootScope.$on('change:model', function (event, data) {
-    getList(data);
-    location.hash = data;
+    window.location.pathname = '/' + data + '/new';
     console.log('change:model');
   });
 
