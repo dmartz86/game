@@ -11,23 +11,25 @@ div(ng-if='model && id')
       .col-md-2
         a.col-md-12.btn.btn-primary.pull-right(ng-href='/{{model}}/new')
           i.glyphicon.glyphicon-plus &nbsp;New
-  .row.ng-cloak(ng-if='model==="users"')
-    .col-md-3
+
+  .row.ng-cloak(ng-switch='model')
+    div(ng-switch-when='users')
+      .col-md-3
         include ../navs/users
-    .col-md-9
+      .col-md-9
         include ../forms/users
-  .row.ng-cloak(ng-if='model==="roles"')
-    .col-md-3
-      include ../navs/roles
-    .col-md-9
-      include ../forms/roles
-  .rowi.ng-cloak(ng-if='model==="groups"')
-    .col-md-3
-      include ../navs/groups
-    .col-md-9
-      include ../forms/groups
-  .row.ng-cloak(ng-if='model==="tasks"')
-    .col-md-3
-      include ../navs/tasks
-    .col-md-9
-      include ../forms/tasks
+    div(ng-switch-when='roles')
+      .col-md-3
+        include ../navs/roles
+      .col-md-9
+        include ../forms/roles
+    div(ng-switch-when='groups')
+      .col-md-3
+        include ../navs/groups
+      .col-md-9
+        include ../forms/groups
+    div(ng-switch-when='tasks')
+      .col-md-3
+        include ../navs/tasks
+      .col-md-9
+        include ../forms/tasks
