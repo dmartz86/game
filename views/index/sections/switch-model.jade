@@ -1,0 +1,21 @@
+.row.ng-cloak(ng-switch='model')
+  div(ng-switch-when='users')
+    .col-md-3
+      include ../navs/users
+    .col-md-9
+      include ../forms/users
+  div(ng-switch-when='roles')
+    .col-md-3
+      include ../navs/roles
+    .col-md-9
+      include ../forms/roles
+  div(ng-switch-when='groups')
+    .col-md-3
+      include ../navs/groups
+    .col-md-9
+      include ../forms/groups
+  div(ng-switch-when='tasks')
+    .col-md-3
+      include ../navs/tasks
+    .col-md-9
+      include ../forms/tasks

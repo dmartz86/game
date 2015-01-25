@@ -1,0 +1,9 @@
+.row.ng-cloak
+  .col-md-3
+    h1 Edit {{model}}
+  .col-md-9
+    .col-md-10
+       .alert.alert-success(role="alert", ng-if='alert') {{alert}}
+    .col-md-2
+      a.col-md-12.btn.btn-primary.pull-right(ng-href='/{{model}}/new')
+        i.glyphicon.glyphicon-plus &nbsp;New

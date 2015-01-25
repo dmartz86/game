@@ -2,34 +2,5 @@ var(ng-init='model= #{JSON.stringify(model)}')
 var(ng-init='id= #{JSON.stringify(id)}')
 
 div(ng-if='model && id')
-  .row.ng-cloak
-    .col-md-3
-      h1 Edit {{model}}
-    .col-md-9
-      .col-md-10
-         .alert.alert-success(role="alert", ng-if='alert') {{alert}}
-      .col-md-2
-        a.col-md-12.btn.btn-primary.pull-right(ng-href='/{{model}}/new')
-          i.glyphicon.glyphicon-plus &nbsp;New
-
-  .row.ng-cloak(ng-switch='model')
-    div(ng-switch-when='users')
-      .col-md-3
-        include ../navs/users
-      .col-md-9
-        include ../forms/users
-    div(ng-switch-when='roles')
-      .col-md-3
-        include ../navs/roles
-      .col-md-9
-        include ../forms/roles
-    div(ng-switch-when='groups')
-      .col-md-3
-        include ../navs/groups
-      .col-md-9
-        include ../forms/groups
-    div(ng-switch-when='tasks')
-      .col-md-3
-        include ../navs/tasks
-      .col-md-9
-        include ../forms/tasks
+  include title
+  include switch-model

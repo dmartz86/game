@@ -1,9 +1,9 @@
 window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
-  var resources = [];
   $scope.model = false;
   $scope.search = '';
   $scope.feed = [];
+  $scope.resources = [];
 
   var getList = function(model, cb){
     if(!model){ return false; }
@@ -64,7 +64,6 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
     $http.delete('/api/' + $scope.model + '/' + $scope.id)
     .success(function(data, status, headers, config) {
       $scope.alert = 'Message: ' + $scope.model + ' deleted';
-      //getList($scope.model);
       var newpath = '/' + $scope.model + '/new';
       window.location.pathname = newpath;
     })
@@ -75,10 +74,10 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
 
   var getHash = function(){
     var words = '';
-    for(var r in resources){
-      if(resources.hasOwnProperty(r)){
-        words = words + '/' + resources[r] + '/';
-        if(resources.length-1 != r){
+    for(var r in $scope.resources){
+      if($scope.resources.hasOwnProperty(r)){
+        words = words + '/' + $scope.resources[r] + '/';
+        if($scope.resources.length-1 != r){
           words = words + '|';
         }
       }
@@ -89,20 +88,18 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   };
 
   $scope.setHashId = function(edit){
-    console.log(edit);
     window.location.pathname =  '/' + $scope.model + '/' + edit._id;
   };
 
   $rootScope.$on('load:resources', function (event, data) {
-    resources = data;
-    console.log('load:resources');
+    $scope.resources = data;
     var hash = getHash();
     if (hash){
-      console.log('hash:'+hash);
       hash = getHash();
       getList(hash);
       $rootScope.$emit('load:param', hash);
     }
+    console.log('load:resources');
   });
 
   $rootScope.$on('change:model', function (event, data) {
