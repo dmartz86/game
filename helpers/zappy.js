@@ -1,8 +1,10 @@
 var resManager = require('./manager').response;
+var filters    = require('./filters');
 
 // middleware between response and controller
-var Zappy = function(controller){
+var Zappy = function(controller, schema){
   this.cx = controller;
+  this.sc = schema;
 };
 
 Zappy.prototype.Get = function(req, res){
@@ -30,13 +32,19 @@ Zappy.prototype.Post = function(req, res){
 };
 
 Zappy.prototype.Put = function(req, res){
-  //TODO: filters here
   delete req.body._id;
-  var doc = {$set: req.body};
-
-  this.cx.UpdateById(req.params.id, doc, function(err, rsp){
-    resManager(req, res, err, rsp);
-  });
+  var zap = this;
+  //filters.authFilter(res, token_id, function(user, token){
+    filters.schemaFilter(req.body, zap.sc, function(err){
+      if(err){
+        res.send(401, {error: err});
+      }else{
+        zap.cx.UpdateById(req.params.id, {$set: req.body}, function(err, rsp){
+          resManager(req, res, err, rsp);
+        });
+      }
+    });
+  //});
 };
 
 module.exports.Zappy = Zappy;

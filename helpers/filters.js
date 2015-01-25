@@ -33,7 +33,7 @@ var authFilter = function(res, token_id, callback) {
      models.users.FindOne({"_id": token.user_id}, function(err, user){
       if(!user){ return res.send(404); }
       if(err){ return res.send(500); }
-      callback(err, user, token);
+      callback(user, token);
     });
   });
 };

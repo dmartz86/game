@@ -12,9 +12,32 @@
   },
   "resources": {
     "tokens":  { "param": "token", "exclude": true },
-    "users":  { "param": "user" },
-    "groups": { "param": "group" },
-    "roles":  { "param": "role" },
-    "tasks":  { "param": "task" }
+    "users":  { 
+      "param": "user",
+      "schema": {
+        "name":  1,
+        "email": 1
+      } 
+    },
+    "groups": { 
+      "param": "group",
+      "schema": {
+        "name": 1
+      } 
+    },
+    "roles":  { 
+      "param": "role",
+      "schema": {
+        "name":  1,
+        "readonly": 1,
+        "resources": 1
+      } 
+    },
+    "tasks":  { 
+      "param": "task",
+      "schema": {
+        "name": 1
+      }
+    }
   }
 }

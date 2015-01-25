@@ -15,7 +15,7 @@ try{
   for(var route in resources){
     if (resources.hasOwnProperty(route)) {
       if(resources[route].exclude){ continue; }
-      generator.addRoutes(api, route, controllers[route]);
+      generator.addRoutes(api, route, controllers[route], resources[route].schema);
     }
   }
 }catch(e){

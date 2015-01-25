@@ -17,7 +17,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       }
     })
     .error(function(data, status) {
-      console.log(data);
+      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
@@ -43,7 +43,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       $scope.alert = 'Message: ' + $scope.model + ' updated';
     })
     .error(function(data, status) {
-      console.log(data);
+      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
@@ -56,7 +56,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       });
     })
     .error(function(data, status) {
-      console.log(data);
+      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
@@ -68,7 +68,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       window.location.pathname = newpath;
     })
     .error(function(data, status) {
-      console.log(data);
+      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 

@@ -2,8 +2,8 @@
 var Zappy = require('../helpers/zappy').Zappy;
 var AV    = require('../config.json').APIVARS;
 // API
-var addRoutes = function(api, route, controller){
-  var zappy = new Zappy(controller);
+var addRoutes = function(api, route, controller, schema){
+  var zappy = new Zappy(controller, schema);
 
   api.get( AV.PRE + route, function(req, res){
     zappy.Get(req, res);
