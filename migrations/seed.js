@@ -5,7 +5,7 @@ var rolesData = require('./data/roles.json');
 
 models.users.DropDB(function(){
   for (var u in usersData){
-    if(usersData.hasOwnProperty(c)){
+    if(usersData.hasOwnProperty(u)){
       models.users.Insert(usersData[u]);
     }
   }
