@@ -1,5 +1,5 @@
-.row(style="display: none")
-  form.form.form-horizontal.col-md-6.col-md-offset-3(name="loginForm")
+.row
+  form.form.form-horizontal.col-md-12(name="loginForm")
     .form-group
       span.col-md-3.control-label Email/Username
       .col-md-9
@@ -15,8 +15,11 @@
         a.col-md-12(ng-click="login()",
           ng-disabled="loginForm.$error.email || !user.email || !user.password",
           class="btn btn-primary", data-dismiss="modal") Login
-        a.col-md-12(ng-click="recovery()") Recovery password
-        a.col-md-12(ng-click="signup()") Create an account
+      .col-md-9.col-md-offset-3
+        .col-md-6
+          a(ng-click="recovery()") Recovery password
+        .col-md-6
+          a(ng-click="signup()") Create an account
     .form-group
       
 

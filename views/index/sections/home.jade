@@ -1,5 +1,15 @@
 .ng-cloak#home(ng-if='!model')
-  h1 Deck tools website
+  .row
+    .jumbotron
+      .row
+        .col-md-6
+          h1 Deck tools
+          p RESTfull APIs in seconds not weeks.
+          p
+          a.btn.btn-primary.btn-lg(ng-click='') Register
+        .col-md-6
+          include login
+  
   .col-md-12(ng-if='!$parent.feed.length')
     h2 Select a resource
     a.col-md-3.btn.btn-primary.btn-lg(ng-repeat='r in $parent.resources', ng-bind='r', ng-href='/{{r}}')
