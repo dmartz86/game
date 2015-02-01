@@ -6,6 +6,11 @@
     "sio": 1346,
     "rds": 6379
   },
+  "mandril":{
+    "from": "decktool@mail.co",
+    "name": "Decks Tools",
+    "token": ""
+  },
   "APIVARS": {
     "PRE": "/",
     "ID": "/:id"

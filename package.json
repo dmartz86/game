@@ -13,7 +13,8 @@
     "express": "*",
     "jade": "*",
     "mpill": "*",
-    "restify": "*"
+    "restify": "*",
+    "mandrill-api": "*"
   },
   "devDependencies": {
     "gulp": "*",

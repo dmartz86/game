@@ -108,6 +108,17 @@ We have two tasks:
 gulp
 `````
 
+mandril config
+===
+Register on mandril and add your details con config.json:
+`````json
+ "mandril":{
+   "from": "decktool@mail.co",
+   "name": "Decks Tools",
+   "token": ""
+ }
+`````
+
 run
 ===
 `````js
@@ -124,6 +135,7 @@ tools
 [x] Express
 [x] MongoDB
 [x] Gulp 
+[x] Mandril
 `````
 
 ToDo
