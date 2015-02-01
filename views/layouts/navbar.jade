@@ -1,7 +1,7 @@
 .navbar.navbar-default(ng-controller='NavBarCtrl')
 
   var(ng-init='model= #{JSON.stringify(model)}')
-  link(rel='stylesheet', ng-href="{{theme}}")
+  link(rel='stylesheet', ng-href="{{theme}}", ng-if='theme')
 
   .navbar-header
     button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
@@ -32,4 +32,4 @@
               span(ng-bind='t.name')
           li.divider
           li
-            a(href='#') Separated link
+            a(ng-click='delTheme()') Default

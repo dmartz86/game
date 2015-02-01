@@ -15,6 +15,11 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
     window.localStorage.setItem('theme', theme.css);
   };
 
+  $scope.delTheme = function(){
+    $scope.theme =  false;
+    window.localStorage.removeItem('theme');
+  };
+
   $scope.setResource = function(resource){
     $rootScope.$emit('change:model', resource);
   };
