@@ -11,4 +11,4 @@ form.form.form-horizontal.col-md-12(name='registerForm', ng-show='isEnabledView(
         ng-disabled='registerForm.$error.email || !register.email') Validate email
     .col-md-9.col-md-offset-3
       .col-md-6
-        a(ng-click='enableView("login")') Already registered?
+        a.pointer(ng-click='enableView("login")') Already registered?
