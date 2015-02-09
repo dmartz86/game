@@ -42,7 +42,7 @@ var authFilter = function(res, token_id, callback) {
 // returns a clean object to hide of user view
 var cleanerFilter = function(target, cleaner, callback){
   for(var c in cleaner ){
-    if(resources.hasOwnProperty(c)){
+    if(target.hasOwnProperty(c)){
       delete target[c];
     }
   }
@@ -53,4 +53,3 @@ module.exports.authFilter   = authFilter;
 module.exports.matchFilter  = matchFilter;
 module.exports.schemaFilter = schemaFilter;
 module.exports.cleanerFilter = cleanerFilter;
-

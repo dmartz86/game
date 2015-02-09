@@ -24,6 +24,8 @@ try{
 
 // custom routes
 api.get('/ping', function(req, res){ res.send(200); });
+api.post('/register/:email', function(req, res){
+  res.send(200);
+});
 
 module.exports.api = api;
-

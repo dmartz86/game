@@ -14,7 +14,9 @@
     "jade": "*",
     "mpill": "*",
     "restify": "*",
-    "mandrill-api": "*"
+    "mandrill-api": "*",
+    "hamper": "*",
+    "uuid": "*"
   },
   "devDependencies": {
     "gulp": "*",

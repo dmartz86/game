@@ -7,7 +7,7 @@ form.form.form-horizontal.col-md-12(name='registerForm', ng-show='isEnabledView(
         required='required', placeholder='Email')
   .form-group
     .col-md-9.col-md-offset-3
-      a.btn.btn-primary.col-md-12(ng-click='login()',
+      a.btn.btn-primary.col-md-12(ng-click='doRegister()',
         ng-disabled='registerForm.$error.email || !register.email') Validate email
     .col-md-9.col-md-offset-3
       .col-md-6
