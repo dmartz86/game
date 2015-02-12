@@ -1,4 +1,4 @@
-var config = require('../config.js');
+var config = require('../config.json');
 var mandrill = require('mandrill-api/mandrill');
 
 var sendMail = function(data) {
@@ -18,7 +18,7 @@ var sendMail = function(data) {
     },
     "tags": data.tags
   };
-  
+
   var client = new mandrill.Mandrill(config.mandril.token);
   client.messages.send({"message": message}, function(result) {
     cb(false, result);

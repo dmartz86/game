@@ -1,6 +1,6 @@
 var uuid     = require('uuid');
 var Hamper   = require('hamper').Hamper;
-var sendMail = require('../tools/email').sendMail;
+var sendMail = require('./email').sendMail;
 
 var createPwd = function(options, cb){
   var hamper   = new Hamper(options.key);
