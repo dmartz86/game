@@ -110,7 +110,7 @@ gulp
 
 mandril config
 ===
-Register on mandril and add your details con config.json:
+Register on mandril and add your details on config.json:
 `````json
  "mandril":{
    "from": "decktool@mail.co",
