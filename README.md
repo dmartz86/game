@@ -119,6 +119,11 @@ Register on mandril and add your details con config.json:
  }
 `````
 
+Ping mandril
+`````sh
+node examples/ping.mandril.js
+`````
+
 run
 ===
 `````js
