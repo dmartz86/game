@@ -27,11 +27,15 @@ try{
 api.get('/ping', function(req, res){ res.send(200); });
 api.post('/register/:email', function(req, res){
   register.addUser(req.params.email, function(err, success){
-    if(err){
-      return res.send(401, err);
-    }
-
+    if(err){ return res.send(401, err); }
     res.send(200, success);
+  });
+});
+
+api.get('/email/confirm/:code', function(req, res){
+  register.confirmEmail(req.params.code, function(err, user){
+    if(err){ return res.send(401, err); }
+    res.send(200, {email: user.email});
   });
 });
 

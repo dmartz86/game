@@ -28,4 +28,13 @@ var addUser = function(email, cb){
   });
 };
 
+var confirmEmail = function(code, cb){
+  models.users.FindOne({code: code}, function(err, user){
+    if(err){ return cb('Error on registry email.'); }
+    if(user){ return cb(false, user); }
+    // TODO: Remove code and set status= 'CONFIRMED'
+  });
+};
+
 module.exports.addUser = addUser;
+module.exports.confirmEmail = confirmEmail;
