@@ -7,7 +7,7 @@ var sendMail = function(data, cb) {
     "html": data.html,
     "text": data.text,
     "subject": data.subject,
-    "from_email": config.mandril.email,
+    "from_email": config.mandril.from,
     "from_name": config.mandril.name,
     "to": [{
       "email": data.email,
