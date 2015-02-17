@@ -3,6 +3,9 @@ var models = require('../helpers/models');
 var utils  = require('../helpers/utils');
 var sendM  = require('../helpers/email').sendMail;
 
+// vars
+var URLConfirm = '//deck.monoapps.co/api/email/confirm/';
+
 var addUser = function(email, cb){
   models.users.FindOne({email: email}, function(err, user){
     if(err){ return cb('Error on registry email.'); }
@@ -14,7 +17,15 @@ var addUser = function(email, cb){
       if(err){ return cb('Error registering email.'); }
 
       sendM({
-        html: '<h1>Welcome to deck App</h1>\ln<a href="//deck.monoapps.co/api/email/confirm/'+code+'">Confirm Email.</a>',
+        html: 
+'<div>' +
+  '<h1>Welcome to deck app</h1>' +
+  '<p>' +
+    'Click on link to confirm your email ' +
+    '<a href="' + URLConfirm + code + '">Confirm email</a>' +
+    ' or copy and paste ' + URLConfirm + code +
+  '</p>' +
+'</div>',
         text: 'Confirm Email',
         subject: 'Email confirmation - Deck tools',
         email: email,
@@ -31,8 +42,21 @@ var addUser = function(email, cb){
 var confirmEmail = function(code, cb){
   models.users.FindOne({code: code}, function(err, user){
     if(err){ return cb('Error on registry email.'); }
-    if(user){ return cb(false, user); }
-    // TODO: Remove code and set status= 'CONFIRMED'
+    if(user){
+      delete user.code;
+      user.status = 'OK';
+      user.date = new Date().getTime();
+      // TODO: create a tmp pwd
+      // TODO: auth the new registered user
+
+      models.users.UpdateByObjectId({'_id': user._id.toString()}, user, '_id', function(err, ack){
+        if(err){ return cb('Error uptating user.'); }
+        if(ack){ return cb(false, user); }
+        else{ return cb('Not ackowledge response.'); }
+      });
+    }else{
+      return cb('User not found.');
+    }
   });
 };
 
