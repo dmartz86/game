@@ -17,7 +17,7 @@ var addUser = function(email, cb){
       if(err){ return cb('Error registering email.'); }
 
       sendM({
-        html: 
+        html:
 '<div>' +
   '<h1>Welcome to deck app</h1>' +
   '<p>' +
@@ -43,16 +43,39 @@ var confirmEmail = function(code, cb){
   models.users.FindOne({code: code}, function(err, user){
     if(err){ return cb('Error on registry email.'); }
     if(user){
-      delete user.code;
-      user.status = 'OK';
-      user.date = new Date().getTime();
-      // TODO: create a tmp pwd
-      // TODO: auth the new registered user
+      utils.createPwd({key: user._id.toString(), text: utils.createUUID()}, function(pwd, text){
 
-      models.users.UpdateByObjectId({'_id': user._id.toString()}, user, '_id', function(err, ack){
-        if(err){ return cb('Error uptating user.'); }
-        if(ack){ return cb(false, user); }
-        else{ return cb('Not ackowledge response.'); }
+        user.password = pwd;
+        delete user.code;
+        user.status = 'OK';
+        user.date = new Date().getTime();
+
+        models.users.UpdateByObjectId({'_id': user._id.toString()}, user, '_id', function(err, ack){
+          if(err){ return cb('Error uptating user.'); }
+          if(ack){
+            sendM({
+              html:
+'<div>' +
+  '<h1>User email confirmed</h1>' +
+  '<p>' +
+    'In order to access your account we have generated a temporal password for you: ' +
+  '</p>' +
+  '<p>' + text + '</p>' +
+'</div>',
+              text: 'Confirm Access',
+              subject: 'Firt time access - Deck tools',
+              email: user.email,
+              name: user.email,
+              tags: ['autopwd']
+            }, function(err){
+              if(err){ return cb(err); }
+              cb(false, 'Email registered.');
+            });
+
+            return cb(false, user);
+
+          }else{ return cb('Not ackowledge response.'); }
+        });
       });
     }else{
       return cb('User not found.');

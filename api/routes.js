@@ -35,7 +35,7 @@ api.post('/register/:email', function(req, res){
 api.get('/email/confirm/:code', function(req, res){
   register.confirmEmail(req.params.code, function(err, user){
     if(err){ return res.send(401, err); }
-    res.send(200, {email: user.email});
+    res.send(200, {message: 'User confirmed. Check your email and close this window.'});
   });
 });
 
