@@ -1,7 +1,6 @@
 // packages
 var restify = require('restify');
 // references
-var filters     = require('../helpers/filters');
 var generator   = require('../helpers/generator');
 var controllers = require('./controllers');
 var resources   = require("../config.json").resources;

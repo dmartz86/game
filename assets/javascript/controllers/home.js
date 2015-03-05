@@ -30,6 +30,7 @@ window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($sco
       if(data.code !== 'InternalError'){
         $scope.error = false;
         window.localStorage.setItem('token', data.token);
+        window.location = '/users';
       }
     })
     .error(function(data, status) {

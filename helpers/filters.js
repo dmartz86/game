@@ -25,15 +25,16 @@ var schemaFilter = function(target, schema, callback){
 
 // INPUT
 // returns 401 if is invalid or token and user.
-var authFilter = function(res, token_id, callback) {
-  var query = {"_id": token_id};
-  models.tokens.FindByObjectId(query, function(err, token){
+var authFilter = function(res, tokenId, callback) {
+  var query = {"_id": tokenId};
+  models.tokens.FindByObjectId(query, '_id', function(err, token){
+    if(err){ return res.send(401, err); }
     if(!token){ return res.send(401); }
-
-     models.users.FindOne({"_id": token.user_id}, function(err, user){
+    query = {"_id": token.user.toString()};
+    models.users.FindByObjectId(query, '_id', function(err, user){
+      if(err){ return res.send(401, err); }
       if(!user){ return res.send(404); }
-      if(err){ return res.send(500); }
-      callback(user, token);
+      callback(err, user, token);
     });
   });
 };

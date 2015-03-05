@@ -1,13 +1,14 @@
 // references
 var Zappy = require('../helpers/zappy').Zappy;
 var AV    = require('../config.json').APIVARS;
+
 // API
 var addRoutes = function(api, route, controller, schema){
   var zappy = new Zappy(controller, schema);
 
   api.get( AV.PRE + route, function(req, res){
     zappy.Get(req, res);
-  }); 
+  });
   api.get( AV.PRE + route + AV.ID, function(req, res){
     zappy.GetOne(req, res);
   });
@@ -31,4 +32,3 @@ var addView =  function(web, route){
 
 module.exports.addRoutes = addRoutes;
 module.exports.addView = addView;
-

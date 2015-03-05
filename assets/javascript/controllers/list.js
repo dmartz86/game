@@ -4,12 +4,13 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   $scope.search = '';
   $scope.feed = [];
   $scope.resources = [];
+  var token = '?token=' + window.localStorage.getItem('token');
 
   var getList = function(model, cb){
     if(!model){ return false; }
 
     $scope.model = model;
-    $http.get('/api/' + model)
+    $http.get('/api/' + model + token)
     .success(function(data, status) {
       if(data.code !== "InternalError"){
         $scope.feed = data;
@@ -17,6 +18,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       }
     })
     .error(function(data, status) {
+      if(status === 401){ window.location = '/'; }
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
@@ -37,9 +39,8 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   };
 
   $scope.update = function(){
-    $http.put('/api/' + $scope.model + '/' + $scope.id , $scope.edit)
+    $http.put('/api/' + $scope.model + '/' + $scope.id + token, $scope.edit)
     .success(function(data, status) {
-      console.log(data);
       $scope.alert = 'Message: ' + $scope.model + ' updated';
     })
     .error(function(data, status) {
@@ -48,7 +49,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   };
 
   $scope.create = function(newModel){
-    $http.post('/api/' + $scope.model, newModel)
+    $http.post('/api/' + $scope.model + token, newModel)
     .success(function(data, status, headers, config) {
       $scope.alert = 'Message: ' + $scope.model + ' created';
       getList($scope.model, function(){
@@ -61,7 +62,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   };
 
   $scope.delete = function(){
-    $http.delete('/api/' + $scope.model + '/' + $scope.id)
+    $http.delete('/api/' + $scope.model + '/' + $scope.id + token)
     .success(function(data, status, headers, config) {
       $scope.alert = 'Message: ' + $scope.model + ' deleted';
       var newpath = '/' + $scope.model + '/new';
