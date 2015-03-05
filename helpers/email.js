@@ -37,8 +37,10 @@ var sendMail = function(data, cb) {
 
   var client = new mandrill.Mandrill(config.mandril.token);
   client.messages.send({'message': message}, function(result) {
+    console.log(result);
     if(cb){ cb(false, result); }
   }, function(e) {
+    console.log(e);
     if(cb){ cb(e); }
   });
 };

@@ -24,4 +24,17 @@ window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($sco
     });
   };
 
+  $scope.login = function(edit){
+    console.log($scope.user);
+    $http.post('/api/login', $scope.user)
+    .success(function(data, status) {
+      if(data.code !== "InternalError"){
+
+      }
+    })
+    .error(function(data, status) {
+      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
+    });
+  };
+
 }]);

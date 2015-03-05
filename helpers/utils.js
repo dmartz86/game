@@ -13,5 +13,18 @@ var createUUID = function(){
   return uuid.v4();
 };
 
+var comparePwd = function(options, cur, cb){
+  console.log(options);
+  console.log(cur);
+  createPwd(options, function(pwd){
+    if(pwd.value === cur.value && pwd.type === cur.type){
+      cb(true);
+    }else{
+      cb(false);
+    }
+  });
+};
+
 module.exports.createPwd = createPwd;
 module.exports.createUUID = createUUID;
+module.exports.comparePwd = comparePwd;

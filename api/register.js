@@ -83,5 +83,19 @@ var confirmEmail = function(code, cb){
   });
 };
 
+var isPwdOK = function(email, text, cb){
+  models.users.FindOne({email: email}, function(err, user){
+    if(err || !user){
+      cb(false);
+    }else{
+      var options = {key: user._id.toString(), text: text};
+      utils.comparePwd(options, user.password, function(isValid){
+        cb(isValid);
+      });
+    }
+});
+};
+
+module.exports.isPwdOK = isPwdOK;
 module.exports.addUser = addUser;
 module.exports.confirmEmail = confirmEmail;

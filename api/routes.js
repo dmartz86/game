@@ -34,8 +34,18 @@ api.post('/register/:email', function(req, res){
 
 api.get('/email/confirm/:code', function(req, res){
   register.confirmEmail(req.params.code, function(err, user){
-    if(err){ return res.send(401, err); }
+    if(err){ return res.send(401, {message: err}); }
     res.send(200, {message: 'User confirmed. Check your email and close this window.'});
+  });
+});
+
+api.post('/login', function(req, res){
+  register.isPwdOK(req.body.email, req.body.password, function(isOK){
+    if(isOK){
+      res.send(200 ,{toDo: 'Create a token'});
+    }else{
+      res.send(401);
+    }
   });
 });
 
