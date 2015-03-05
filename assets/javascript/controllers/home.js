@@ -12,7 +12,7 @@ window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($sco
   $scope.doRegister = function(name){
     $http.post('/api/register/'+$scope.register.email)
     .success(function(data){
-      if(data.code !== "InternalError"){
+      if(data.code !== 'InternalError'){
         $scope.view = 'login';
         $scope.alert = 'Email registered. Check your email inbox.';
         $scope.error = '';
@@ -25,11 +25,11 @@ window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($sco
   };
 
   $scope.login = function(edit){
-    console.log($scope.user);
     $http.post('/api/login', $scope.user)
     .success(function(data, status) {
-      if(data.code !== "InternalError"){
-
+      if(data.code !== 'InternalError'){
+        $scope.error = false;
+        window.localStorage.setItem('token', data.token);
       }
     })
     .error(function(data, status) {

@@ -1,10 +1,8 @@
 // references
+var config = require('../config.json');
 var models = require('../helpers/models');
 var utils  = require('../helpers/utils');
 var sendM  = require('../helpers/email').sendMail;
-
-// vars
-var URLConfirm = '//deck.monoapps.co/api/email/confirm/';
 
 var addUser = function(email, cb){
   models.users.FindOne({email: email}, function(err, user){
@@ -22,8 +20,8 @@ var addUser = function(email, cb){
   '<h1>Welcome to deck app</h1>' +
   '<p>' +
     'Click on link to confirm your email ' +
-    '<a href="' + URLConfirm + code + '">Confirm email</a>' +
-    ' or copy and paste ' + URLConfirm + code +
+    '<a href="' + config.URL.ACK + code + '">Confirm email</a>' +
+    ' or copy and paste ' + config.URL.ACK + code +
   '</p>' +
 '</div>',
         text: 'Confirm Email',
@@ -90,10 +88,16 @@ var isPwdOK = function(email, text, cb){
     }else{
       var options = {key: user._id.toString(), text: text};
       utils.comparePwd(options, user.password, function(isValid){
-        cb(isValid);
+        if(isValid){
+          utils.createToken(user, function(err, token){
+            cb(err, token, isValid);
+          });
+        }else{
+          cb('Not valid auth', false, isValid);
+        }
       });
     }
-});
+  });
 };
 
 module.exports.isPwdOK = isPwdOK;

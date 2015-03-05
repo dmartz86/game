@@ -40,9 +40,9 @@ api.get('/email/confirm/:code', function(req, res){
 });
 
 api.post('/login', function(req, res){
-  register.isPwdOK(req.body.email, req.body.password, function(isOK){
+  register.isPwdOK(req.body.email, req.body.password, function(err, token, isOK){
     if(isOK){
-      res.send(200 ,{toDo: 'Create a token'});
+      res.send(200 , {token: token[0]._id});
     }else{
       res.send(401);
     }
