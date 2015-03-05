@@ -35,7 +35,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
 
   $scope.theme = getTheme();
 
-  $http.get('/properties.json')
+  $http.get('/api/properties')
   .success(function(data, status) {
     if(data.code !== "InternalError"){
       $scope.resources = data.resources;

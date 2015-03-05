@@ -1,3 +1,6 @@
+// references
+var filters = require('./filters');
+
 // response manager
 var response = function(req, res, err, rsp){
   if(err){ return res.json(500, {message: err}); }
@@ -6,5 +9,28 @@ var response = function(req, res, err, rsp){
   res.json(rsp);
 };
 
-module.exports.response = response;
+// INPUT / MANGLE manager
+var review = function(opt, cb){
+  if(!opt.req.params.token){ return opt.res.send(401); }
 
+  filters.authFilter(opt.res, opt.req.params.token, function(err, user, token){
+    if(err){ return opt.res.send(401, {error: err}); }
+    if(!token){ return opt.res.send(401); }
+
+    opt.user = user;
+    opt.token = token;
+
+    if(opt.schema){
+      filters.schemaFilter(opt.req.body, opts.zap.sc, function(err){
+        if(err){ return opt.res.send(401, {error: err}); }
+
+        cb(err, opt);
+      });
+    }else{
+      cb(err, opt);
+    }
+  });
+};
+
+module.exports.review = review;
+module.exports.response = response;

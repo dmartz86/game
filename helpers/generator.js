@@ -30,5 +30,5 @@ var addView =  function(web, route){
   });
 };
 
-module.exports.addRoutes = addRoutes;
 module.exports.addView = addView;
+module.exports.addRoutes = addRoutes;

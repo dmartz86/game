@@ -18,7 +18,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
       }
     })
     .error(function(data, status) {
-      if(status === 401){ window.location = '/'; }
+      if(status === 401){ window.location = '/'; return false; }
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };

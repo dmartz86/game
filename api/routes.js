@@ -1,10 +1,13 @@
 // packages
 var restify = require('restify');
+
 // references
-var generator   = require('../helpers/generator');
+var register    = require("./register");
 var controllers = require('./controllers');
 var resources   = require("../config.json").resources;
-var register    = require("./register");
+var generator   = require('../helpers/generator');
+var review      = require('../helpers/manager').review;
+
 // settings
 var api = restify.createServer();
 api.use(restify.bodyParser());
@@ -45,6 +48,12 @@ api.post('/login', function(req, res){
     }else{
       res.send(401);
     }
+  });
+});
+
+api.get('/properties', function(req, res){
+  review({ req: req, res: res }, function(){
+    res.json(require('../assets/properties.json'));
   });
 });
 
