@@ -11,6 +11,7 @@
     "name": "Decks Tools",
     "token": ""
   },
+  "TTL": 84000,
   "URL": {
     "ACK": "http://deck.monoapps.co/api/email/confirm/"
   },
@@ -20,28 +21,28 @@
   },
   "resources": {
     "tokens":  { "param": "token", "exclude": true },
-    "users":  { 
+    "users":  {
       "param": "user",
       "schema": {
         "name":  1,
         "email": 1
-      } 
+      }
     },
-    "groups": { 
+    "groups": {
       "param": "group",
       "schema": {
         "name": 1
-      } 
+      }
     },
-    "roles":  { 
+    "roles":  {
       "param": "role",
       "schema": {
         "name":  1,
         "readonly": 1,
         "resources": 1
-      } 
+      }
     },
-    "tasks":  { 
+    "tasks":  {
       "param": "task",
       "schema": {
         "name": 1
