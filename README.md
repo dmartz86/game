@@ -152,4 +152,6 @@ ToDo
 [ ] Add socket io
 [ ] Add nested models api routes
 [ ] Add common command line shortcuts
+[ ] Restrict user management to role 'admin'
+[ ] Prevent delete user it self
 `````

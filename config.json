@@ -11,6 +11,9 @@
     "name": "Decks Tools",
     "token": ""
   },
+  "URL": {
+    "ACK": "http://deck.monoapps.co/api/email/confirm/"
+  },
   "APIVARS": {
     "PRE": "/",
     "ID": "/:id"

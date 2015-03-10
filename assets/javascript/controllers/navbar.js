@@ -3,6 +3,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
   $scope.search = '';
   $scope.themes = [];
   $scope.resources = [];
+  var token = '?token=' + window.localStorage.getItem('token');
 
   var getTheme = function(){
     var tbase = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css';
@@ -35,7 +36,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
 
   $scope.theme = getTheme();
 
-  $http.get('/api/properties')
+  $http.get('/api/properties' + token)
   .success(function(data, status) {
     if(data.code !== "InternalError"){
       $scope.resources = data.resources;
