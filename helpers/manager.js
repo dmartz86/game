@@ -21,7 +21,8 @@ var review = function(opt, cb){
     opt.token = token;
 
     if(opt.schema){
-      filters.schemaFilter(opt.req.body, opts.zap.sc, function(err){
+      delete opt.req.body.token;
+      filters.schemaFilter(opt.req.body, opt.zap.sc, function(err){
         if(err){ return opt.res.send(401, {error: err}); }
 
         cb(err, opt);
