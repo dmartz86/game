@@ -47,6 +47,14 @@
       "schema": {
         "name": 1
       }
+    },
+    "products":  {
+      "param": "product",
+      "schema": {
+        "name": 1,
+        "price": 1,
+        "image": 1
+      }
     }
   }
 }

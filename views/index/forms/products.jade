@@ -1,0 +1,22 @@
+form.form-horizontal.ng-cloak(name="modelForm")
+  fieldset
+    .form-group
+      label.col-md-2.control-label Name
+      .col-md-10
+        input.form-control(required='required',
+          type='text', ng-model='$parent.edit.name')
+    .form-group
+      label.col-md-2.control-label Price
+      .col-md-10
+        input.form-control(required='required',
+          type='number', ng-model='$parent.edit.price')
+    .form-group
+      label.col-md-2.control-label Image
+      .col-md-10
+        input.form-control(required='required',
+          type='url', ng-model='$parent.edit.image')
+    .form-group(ng-show="$parent.edit.image")
+      .col-md-2
+      .col-md-6
+        img.product.form-control(ng-src='{{$parent.edit.image}}')
+    include actions

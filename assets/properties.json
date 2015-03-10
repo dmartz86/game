@@ -2,7 +2,7 @@
   "app": {
     "name": "WebApp"
   },
-  "resources": ["users", "groups", "roles", "tasks"],
+  "resources": ["users", "groups", "roles", "tasks", "products"],
   "themes": [
     { "name": "Cerulean",
       "css": "http://bootswatch.com/cerulean/bootstrap.min.css" },
