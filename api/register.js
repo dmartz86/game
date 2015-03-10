@@ -61,7 +61,7 @@ var confirmEmail = function(code, cb){
   '<p>' + text + '</p>' +
 '</div>',
               text: 'Confirm Access',
-              subject: 'Firt time access - Deck tools',
+              subject: 'First time access - Deck tools',
               email: user.email,
               name: user.email,
               tags: ['autopwd']

@@ -34,6 +34,7 @@ window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($sco
       }
     })
     .error(function(data, status) {
+      if(status === 401){ $scope.error = 'Unauthorized'; return false; }
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };

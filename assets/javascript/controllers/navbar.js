@@ -25,6 +25,11 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
     $rootScope.$emit('change:model', resource);
   };
 
+  $scope.logout = function(){
+    window.localStorage.removeItem('token');
+    window.location = '/';
+  };
+
   $rootScope.$on('load:param', function (event, data) {
     $scope.model = data;
     console.log('load:param');

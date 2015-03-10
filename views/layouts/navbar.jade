@@ -10,7 +10,7 @@
       span.icon-bar
     a.navbar-brand(href='/') Deck tools
   .navbar-collapse.collapse.navbar-responsive-collapse
-    ul.nav.navbar-nav
+    ul.nav.navbar-nav(ng-show='resources.length')
       li.dropdown.active
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Resources 
@@ -21,6 +21,9 @@
 
     form.navbar-form.navbar-left.ng-cloack(ng-if='model')
       input.form-control.col-lg-8.ng-cloak(ng-model="$parent.search", type='text', placeholder='Search in {{model}}')
+    ul.nav.navbar-nav.navbar-right
+      li.dropdown(ng-show='resources.length')
+        a.dropdown.active(ng-click='logout()', ng-if='resources.length') Logout
     ul.nav.navbar-nav.navbar-right
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
