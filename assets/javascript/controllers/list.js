@@ -1,11 +1,14 @@
 window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
+  //---- common vars ----//
   $scope.model = false;
   $scope.search = '';
+  $scope.commons = {};
   $scope.feed = [];
   $scope.resources = [];
   var token = '?token=' + window.localStorage.getItem('token');
 
+  //---- private functions ----//
   var getList = function(model, cb){
     if(!model){ return false; }
 
@@ -38,6 +41,22 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
     }
   };
 
+  var getHash = function(){
+    var words = '';
+    for(var r in $scope.resources){
+      if($scope.resources.hasOwnProperty(r)){
+        words = words + '/' + $scope.resources[r] + '/';
+        if($scope.resources.length-1 != r){
+          words = words + '|';
+        }
+      }
+    }
+
+    var hashes = window.location.pathname.match(new RegExp('(W|^)('+ words +')(W|$)'));
+    if(hashes){ return hashes[0]; }else{ return false; }
+  };
+
+  //---- scope functions ----//
   $scope.update = function(){
     $http.put('/api/' + $scope.model + '/' + $scope.id + token, $scope.edit)
     .success(function(data, status) {
@@ -73,24 +92,23 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
     });
   };
 
-  var getHash = function(){
-    var words = '';
-    for(var r in $scope.resources){
-      if($scope.resources.hasOwnProperty(r)){
-        words = words + '/' + $scope.resources[r] + '/';
-        if($scope.resources.length-1 != r){
-          words = words + '|';
-        }
-      }
-    }
-
-    var hashes = window.location.pathname.match(new RegExp('(W|^)('+ words +')(W|$)'));
-    if(hashes){return hashes[0];}else{return false;}
-  };
-
   $scope.setHashId = function(edit){
     window.location.pathname =  '/' + $scope.model + '/' + edit._id;
   };
+
+  $scope.toggle = function(element, value){
+    if(element[value]){
+      element[value] = false;
+    }else{
+      element[value] = true;
+    }
+  };
+
+  //---- event listeners ----//
+  $rootScope.$on('load:commons', function (event, data) {
+    $scope.commons = data;
+    console.log('load:commons');
+  });
 
   $rootScope.$on('load:resources', function (event, data) {
     $scope.resources = data;

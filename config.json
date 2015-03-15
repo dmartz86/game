@@ -50,10 +50,14 @@
     },
     "products":  {
       "param": "product",
+      "exclude": true,
       "schema": {
         "name": 1,
+        "code": 1,
         "price": 1,
-        "image": 1
+        "sizes": 1,
+        "image": 1,
+        "comments": 1
       }
     }
   }

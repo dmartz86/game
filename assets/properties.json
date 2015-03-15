@@ -2,7 +2,10 @@
   "app": {
     "name": "WebApp"
   },
-  "resources": ["users", "groups", "roles", "tasks", "products"],
+  "resources": ["groups", "roles", "tasks", "products"],
+  "commons":{
+    "sizes": [{"v": "XXS"},{"v": "XS"},{"v": "S"},{"v": "M"},{"v": "L"},{"v": "XL"}]
+  },
   "themes": [
     { "name": "Cerulean",
       "css": "http://bootswatch.com/cerulean/bootstrap.min.css" },

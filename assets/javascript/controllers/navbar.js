@@ -44,8 +44,9 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
   $http.get('/api/properties' + token)
   .success(function(data, status) {
     if(data.code !== "InternalError"){
-      $scope.resources = data.resources;
       $scope.themes = data.themes;
+      $scope.resources = data.resources;
+      $rootScope.$emit('load:commons', data.commons || {});
       $rootScope.$emit('load:resources', data.resources || []);
     }
   })
