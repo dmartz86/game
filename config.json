@@ -23,6 +23,7 @@
     "tokens":  { "param": "token", "exclude": true },
     "users":  {
       "param": "user",
+      "exclude": true,
       "schema": {
         "name":  1,
         "email": 1
@@ -50,7 +51,6 @@
     },
     "products":  {
       "param": "product",
-      "exclude": true,
       "schema": {
         "name": 1,
         "code": 1,
