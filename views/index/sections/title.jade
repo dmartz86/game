@@ -6,5 +6,5 @@
        .alert.alert-success(role="alert", ng-if='alert') {{alert}}
        .alert.alert-danger(role="alert", ng-if='error') {{error}}
     .col-md-2
-      a.col-md-12.btn.btn-primary.pull-right(ng-href='/{{model}}/new')
+      a.col-md-12.btn.btn-primary.pull-right#addLink(ng-href='/{{model}}/new')
         i.glyphicon.glyphicon-plus &nbsp;New
