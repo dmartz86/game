@@ -130,6 +130,17 @@ run
 node app.js
 `````
 
+### tests
+Start web driver manager
+```sh
+webdriver-manager start
+```
+
+Running protractor
+```sh
+protractor protractor.js
+```
+
 tools
 ===
 `````text
@@ -139,7 +150,7 @@ tools
 [x] Restify
 [x] Express
 [x] MongoDB
-[x] Gulp 
+[x] Gulp
 [x] Mandril
 `````
 
