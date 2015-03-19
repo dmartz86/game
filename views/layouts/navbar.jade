@@ -26,12 +26,12 @@
         a.dropdown.active(ng-click='logout()', ng-if='resources.length') Logout
     ul.nav.navbar-nav.navbar-right
       li.dropdown
-        a.dropdown-toggle(href='#', data-toggle='dropdown')
+        a.dropdown-toggle#themesLink(href='#', data-toggle='dropdown')
           | Theme selector 
           b.caret
         ul.dropdown-menu
           li(ng-repeat='t in themes')
-            a(ng-click='setTheme(t)')
+            a(ng-click='setTheme(t)' id='theme{{$index}}')
               span(ng-bind='t.name')
           li.divider
           li

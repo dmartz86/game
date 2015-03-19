@@ -1,18 +1,22 @@
-describe('login, navbar, filter', function() {
-  /**
-  beforeEach(function() {
-    var cleanQuery = 'window.localStorage.clear();';
-    browser.executeScript(cleanQuery).then(function(){
-    });
-  });
-  **/
+var properties = require('../../assets/properties.json');
 
-  it('should pass login', function() {
+describe('login, navbar, filter', function() {
+
+  beforeEach(function() {
+    //TODO: Create the test user.
+  });
+
+  afterEach(function() {
+    //TODO: Delete the test user.
+  });
+
+  it('should select theme and CRUD a group', function() {
     browser.get('http://deck.wrine.co');
     browser.waitForAngular();
     element(by.model('user.email')).sendKeys('tester@monoapps.co');
     element(by.model('user.password')).sendKeys('');
     element(by.id('loginLink')).click();
+
     var query = 'return window.localStorage.getItem("token");';
     browser.executeScript(query).then(function(token,b){
       expect(token.length).toBe(24);
@@ -23,32 +27,31 @@ describe('login, navbar, filter', function() {
 
     var resourceList = element.all(by.binding('r'));
     expect(resourceList.count()).toEqual(4);
-    expect(resourceList.get(0).getInnerHtml()).toEqual('groups');
-    expect(resourceList.get(1).getInnerHtml()).toEqual('roles');
-    expect(resourceList.get(2).getInnerHtml()).toEqual('tasks');
-    expect(resourceList.get(3).getInnerHtml()).toEqual('products');
+
+    properties.resources.forEach(function(r,i){
+      expect(resourceList.get(i).getInnerHtml()).toEqual(r);
+    });
 
     var themeList = element.all(by.repeater('t in themes'));
     expect(themeList.count()).toEqual(16);
 
+    themeList.each(function(e,i){
+      element(by.id('themesLink')).click();
+      element(by.id('theme'+i)).click();
+    });
+
     element(by.id('resourcesLink')).click();
     resourceList.get(0).click();
-
     element(by.id('addLink')).click();
-    browser.sleep(1000);
 
     var groupName = 'Group' + new Date().getTime();
     var nameInput = element(by.model('$parent.edit.name'));
-    browser.sleep(1000);
     nameInput.sendKeys(groupName);
 
     element(by.id('createLink')).click();
-    browser.sleep(1000);
 
     var searchInput = element(by.model('$parent.search'));
-    browser.sleep(1000);
     searchInput.sendKeys(groupName);
-    browser.sleep(1000);
     expect(searchInput.getAttribute('value')).toBe(groupName);
 
     var groupList = element.all(by.repeater('f in $parent.feed'));
