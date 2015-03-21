@@ -30,6 +30,21 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
     window.location = '/';
   };
 
+  $scope.getProperties = function(){
+    $http.get('/api/properties' + token)
+    .success(function(data, status) {
+      if(data.code !== "InternalError"){
+        $scope.themes = data.themes;
+        $scope.resources = data.resources;
+        $rootScope.$emit('load:commons', data.commons || {});
+        $rootScope.$emit('load:resources', data.resources || []);
+      }
+    })
+    .error(function(data, status) {
+      console.log(data);
+    });
+  };
+
   $rootScope.$on('load:param', function (event, data) {
     $scope.model = data;
     console.log('load:param');
@@ -41,17 +56,8 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
 
   $scope.theme = getTheme();
 
-  $http.get('/api/properties' + token)
-  .success(function(data, status) {
-    if(data.code !== "InternalError"){
-      $scope.themes = data.themes;
-      $scope.resources = data.resources;
-      $rootScope.$emit('load:commons', data.commons || {});
-      $rootScope.$emit('load:resources', data.resources || []);
-    }
-  })
-  .error(function(data, status) {
-    console.log(data);
-  });
+  if(token!=='?token=null'){
+    $scope.getProperties();
+  }
 
 }]);
