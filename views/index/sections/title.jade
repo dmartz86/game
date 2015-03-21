@@ -1,10 +1,12 @@
 .row.ng-cloak
   .col-md-3
-    h1 Edit {{model}}
+    h1(ng-bind='"Edit " + model')
   .col-md-9
     .col-md-10
-       .alert.alert-success(role="alert", ng-if='alert') {{alert}}
-       .alert.alert-danger(role="alert", ng-if='error') {{error}}
+       .alert.alert-success(role="alert", ng-if='alert')
+         span(ng-bind='alert')
+       .alert.alert-danger(role="alert", ng-if='error')
+         span(ng-bind='error')
     .col-md-2
       a.col-md-12.btn.btn-primary.pull-right#addLink(ng-href='/{{model}}/new')
         i.glyphicon.glyphicon-plus &nbsp;New

@@ -1,25 +1,50 @@
+// Properties expose the API for each resource
 var properties = require('../../assets/properties.json');
+var resources = require('../../config.json').resources;
+var utils = require('../../helpers/utils');
+var models = require('../../helpers/models');
+var testUser = {
+  email: 'tester@monoapps.co',
+  status: 'OK',
+  date: new Date().getTime()
+};
+var key, thetext;
 
 describe('login, navbar, filter', function() {
 
-  beforeEach(function() {
-    //TODO: Create the test user.
+  beforeEach(function(done) {
+    models.users.Insert(testUser, function(err, users){
+      var user = users[0];
+      key = user._id.toString();
+      var options = {
+        key: key,
+        text: utils.createUUID()
+      };
+      utils.createPwd(options, function(pwd, text){
+        thetext = text;
+        var query = {'_id': key};
+        user.password = pwd;
+        models.users.UpdateByObjectId(query, user, '_id', function(err, ack){
+          done();
+        });
+      });
+    });
   });
 
   afterEach(function() {
-    //TODO: Delete the test user.
+    models.users.Remove(testUser, function(err, ack){});
   });
 
-  it('should select theme and CRUD a group', function() {
+  it('should select a theme and CRUD a group', function() {
     browser.get('http://deck.wrine.co');
     browser.waitForAngular();
-    element(by.model('user.email')).sendKeys('tester@monoapps.co');
-    element(by.model('user.password')).sendKeys('');
+    element(by.model('user.email')).sendKeys(testUser.email);
+    element(by.model('user.password')).sendKeys(thetext);
     element(by.id('loginLink')).click();
 
-    var query = 'return window.localStorage.getItem("token");';
-    browser.executeScript(query).then(function(token,b){
-      expect(token.length).toBe(24);
+    var queryToken = 'return window.localStorage.getItem("token");';
+    browser.executeScript(queryToken).then(function(token,b){
+      //expect(token.length).toBe(24);
     });
 
     var resourcesRepeater = element.all(by.repeater('r in resources'));
