@@ -10,10 +10,14 @@ var testUser = {
 };
 var key, thetext;
 
-describe('login, navbar, filter', function() {
+describe('login, navbar, filter, logout', function() {
 
   beforeEach(function(done) {
     models.users.Insert(testUser, function(err, users){
+
+      expect(err).toBe(null);
+      expect(users.length).toBe(1);
+
       var user = users[0];
       key = user._id.toString();
       var options = {
@@ -21,10 +25,17 @@ describe('login, navbar, filter', function() {
         text: utils.createUUID()
       };
       utils.createPwd(options, function(pwd, text){
+
+        expect(text).toEqual(jasmine.any(String));
+        expect(pwd.type).toEqual(jasmine.any(String));
+        expect(pwd.value).toEqual(jasmine.any(String));
+
         thetext = text;
         var query = {'_id': key};
         user.password = pwd;
         models.users.UpdateByObjectId(query, user, '_id', function(err, ack){
+          expect(err).toBe(null);
+          expect(ack).toBe(1);
           done();
         });
       });
@@ -32,7 +43,10 @@ describe('login, navbar, filter', function() {
   });
 
   afterEach(function() {
-    models.users.Remove(testUser, function(err, ack){});
+    models.users.Remove(testUser, function(err, ack){
+      expect(err).toEqual(jasmine.any(String));
+      expect(ack).toBe(1);
+    });
   });
 
   it('should select a theme and CRUD a group', function() {
@@ -44,7 +58,7 @@ describe('login, navbar, filter', function() {
 
     var queryToken = 'return window.localStorage.getItem("token");';
     browser.executeScript(queryToken).then(function(token,b){
-      //expect(token.length).toBe(24);
+      expect(token.length).toBe(24);
     });
 
     var resourcesRepeater = element.all(by.repeater('r in resources'));
@@ -88,5 +102,7 @@ describe('login, navbar, filter', function() {
 
     groupList = element.all(by.repeater('f in $parent.feed'));
     expect(groupList.count()).toEqual(0);
+
+    element( by.css('[ng-click="logout()"]') ).click();
   });
 });
