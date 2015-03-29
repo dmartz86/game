@@ -152,6 +152,7 @@ tools
 [x] MongoDB
 [x] Gulp
 [x] Mandril
+[x] Protractor
 `````
 
 ToDo
