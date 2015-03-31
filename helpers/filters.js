@@ -26,6 +26,7 @@ var schemaFilter = function(target, schema, callback){
 // INPUT
 // returns 401 if is invalid or token and user.
 var authFilter = function(res, tokenId, callback) {
+  if(!tokenId || tokenId===null || tokenId.length<24){ return res.send(401); }
   var query = {"_id": tokenId};
   models.tokens.FindByObjectId(query, '_id', function(err, token){
     if(err){ console.log(err); return res.send(401); }
