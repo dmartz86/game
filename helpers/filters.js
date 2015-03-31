@@ -28,11 +28,11 @@ var schemaFilter = function(target, schema, callback){
 var authFilter = function(res, tokenId, callback) {
   var query = {"_id": tokenId};
   models.tokens.FindByObjectId(query, '_id', function(err, token){
-    if(err){ console.trace(err); return res.send(401); }
+    if(err){ console.log(err); return res.send(401); }
     if(!token){ return res.send(401); }
     query = {"_id": token.user.toString()};
     models.users.FindByObjectId(query, '_id', function(err, user){
-      if(err){ console.trace(err); return res.send(401); }
+      if(err){ console.log(err); return res.send(401); }
       if(!user){ return res.send(404); }
       callback(err, user, token);
     });
