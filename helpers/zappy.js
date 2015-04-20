@@ -25,6 +25,7 @@ Zappy.prototype.GetOne = function(req, res){
 };
 
 Zappy.prototype.Del = function(req, res){
+  delete req.body;
   review({ req: req, res: res, zap: this }, function(err, opt){
     opt.zap.cx.DeleteById(req.params.id, function(err, rsp){
       manager(req, res, err, rsp);
