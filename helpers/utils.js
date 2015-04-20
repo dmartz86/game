@@ -4,7 +4,6 @@ var Hamper   = require('hamper').Hamper;
 // references
 var config   = require('../config.json');
 var models   = require('../helpers/models');
-var sendMail = require('./email').sendMail;
 
 var createPwd = function(options, cb){
   var hamper   = new Hamper(options.key);

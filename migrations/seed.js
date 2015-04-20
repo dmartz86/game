@@ -1,5 +1,4 @@
 var models    = require('../helpers/models');
-var resources = require('../config.json').resoures;
 var usersData = require('./data/users.json');
 var rolesData = require('./data/roles.json');
 

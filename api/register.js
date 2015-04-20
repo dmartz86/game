@@ -11,7 +11,7 @@ var addUser = function(email, cb){
 
     var code  = utils.createUUID();
     var query = {email: email, code: code};
-    models.users.Insert(query, function(err, user ){
+    models.users.Insert(query, function(err){
       if(err){ return cb('Error registering email.'); }
 
       sendM({

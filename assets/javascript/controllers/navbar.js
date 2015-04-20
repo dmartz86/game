@@ -32,7 +32,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
 
   $scope.getProperties = function(){
     $http.get('/api/properties' + token)
-    .success(function(data, status) {
+    .success(function(data) {
       if(data.code !== "InternalError"){
         $scope.themes = data.themes;
         $scope.resources = data.resources;
@@ -40,7 +40,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
         $rootScope.$emit('load:resources', data.resources || []);
       }
     })
-    .error(function(data, status) {
+    .error(function(data) {
       console.log(data);
     });
   };
