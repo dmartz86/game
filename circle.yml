@@ -1,5 +1,6 @@
 machine:
   hosts:
+    wrine.co: 127.0.0.1
     deck.wrine.co: 127.0.0.1
   post:
     - npm install gulp protractor -g
@@ -10,7 +11,6 @@ machine:
 dependencies:
   pre:
     - sudo rm /etc/apt/sources.list.d/google-chrome.list
-    - sudo apt-get update
     - sudo apt-get install nginx
     - sudo rm /etc/nginx/sites-enabled/default
     - sudo cp /home/ubuntu/deck/deck.conf /etc/nginx/sites-enabled/deck.conf
