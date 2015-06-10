@@ -1,0 +1,24 @@
+machine:
+  hosts:
+    deck.wrine.co: 127.0.0.1
+  post:
+    - npm install gulp protractor -g
+    - webdriver-manager update
+    - webdriver-manager start:
+        background: true
+
+dependencies:
+  pre:
+    - sudo rm /etc/apt/sources.list.d/google-chrome.list
+    - sudo apt-get update
+    - sudo apt-get install nginx
+    - sudo rm /etc/nginx/sites-enabled/default
+    - sudo cp /home/ubuntu/deck/deck.conf /etc/nginx/sites-enabled/deck.conf
+    - sudo service nginx reload
+    # latest stable chrome
+    - curl -L -o google-chrome-stable.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - sudo dpkg -i google-chrome-stable.deb
+    # make chrome lxc-friendly
+    - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+    - rm google-chrome-stable.deb
+
