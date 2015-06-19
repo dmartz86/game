@@ -1,6 +1,21 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 .pointer {
   cursor: pointer;
 }
-.product {
-  height: 100% !important;
+.auto-cursor {
+  cursor: auto !important;
+}
+.no-decor {
+  text-decoration: initial !important;
+}
+.ellipse {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.td-zero {
+  padding: 0 !important;
 }

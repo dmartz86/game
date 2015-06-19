@@ -1,0 +1,37 @@
+include ../layouts/app
+  head
+    title Email confirmado
+    link(rel="icon" href="/img/favicon.ico")
+    link(rel='stylesheet', href='/themes/paper.min.css')
+  body
+    .navbar.navbar-default
+      .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+        a.navbar-brand(href='/') Artoke Store
+      .navbar-collapse.collapse.navbar-responsive-collapse
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a.dropdown.active(href='') API
+          li.dropdown
+            a.dropdown.active(href='') Documentación
+    .container
+      .jumbotron
+        .row
+          .col-md-6.col-xs-12
+            h2 Recuperar password
+          .col-md-6.col-xs-12
+            form.form-horizontal(name="modelForm")
+              fieldset
+                .form-group
+                  label.col-md-4.control-label Nuevo password
+                  .col-md-8
+                    input.form-control(required='required',
+                      autofocus, type='password', ng-model='new')
+                .form-group
+                  label.col-md-4.control-label Repetir password
+                  .col-md-8
+                    input.form-control(required='required',
+                      type='password', ng-model='repeat')
+                .form-group
+                  .col-md-8.col-md-offset-4
+                    a.btn.btn-primary.col-md-12 Enviar

@@ -1,0 +1,51 @@
+.row(ng-controller='AccountCtrl')
+  include ../../index/sections/alerts
+  .col-md-6
+    h2 Mi cuenta 
+    form.form-horizontal.ng-cloak(name="accountForm")
+    fieldset
+      .form-group
+        label.col-md-2.control-label Nombre
+        .col-md-10
+          input.form-control(required='required',
+            ng-focus='',
+            type='text', ng-model='account.name')    
+      .form-group
+        label.col-md-2.control-label Correo
+        .col-md-10
+          label.form-control(ng-bind='account.email')
+      .form-group
+        label.col-md-2.control-label Estado
+        .col-md-10
+          //label.form-control(ng-bind='account.status')
+          select.form-control(ng-model='account.status', disabled='')
+            option(value='0') Registrado
+            option(value='1') Email confirmado
+            option(value='2') Cancelado
+      .form-group
+        .col-md-10.col-md-offset-2
+          a.form-control.btn.btn-primary(ng-click='saveAccount()',
+            ng-disabled='!account.name') Actualizar detalles
+  .col-md-6
+    h2 Seguridad
+    fieldset
+      .form-group
+        label.col-md-3.control-label Clave actual
+        .col-md-9
+          input.form-control(required='required',
+            type='password', ng-model='password')
+      .form-group
+        label.col-md-3.control-label Nueva clave
+        .col-md-9
+          input.form-control(required='required',
+            type='password', ng-model='newPwd')
+      .form-group
+        label.col-md-3.control-label Repetir clave
+        .col-md-9
+          input.form-control(required='required',
+            type='password', ng-model='again')
+      .form-group
+        .col-md-9.col-md-offset-3
+          a.form-control.btn.btn-primary(ng-click='changePwd()', 
+            ng-disabled='isNotValid()') Cambiar clave
+ 

@@ -1,12 +1,11 @@
 .row.ng-cloak
-  .col-md-3
-    h1(ng-bind='"Edit " + model')
-  .col-md-9
-    .col-md-10
-       .alert.alert-success(role="alert", ng-if='alert')
-         span(ng-bind='alert')
-       .alert.alert-danger(role="alert", ng-if='error')
-         span(ng-bind='error')
-    .col-md-2
-      a.col-md-12.btn.btn-primary.pull-right#addLink(ng-href='/{{model}}/new')
+  .col-md-3.col-xs-12
+    h3(ng-bind='"List: " + model')
+  .col-md-9.col-xs-12
+    .col-xs-12.col-md-9
+      include alerts
+    .col-xs-12.col-md-3
+      a.col-md-12.btn.btn-success.pull-right#addLink(
+        ng-click='',
+        ng-href='/{{model}}/new')
         i.glyphicon.glyphicon-plus &nbsp;New

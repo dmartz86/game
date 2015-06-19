@@ -10,4 +10,16 @@ form.form-horizontal.ng-cloak(name="modelForm")
       .col-md-10
         input.form-control(required='required',
           type='text', ng-model='$parent.edit.name')
+    .form-group
+      label.col-md-2.control-label Since
+      .col-md-10
+        input.form-control(required='required',
+          type='text', ng-model='$parent.edit.date')
+    .form-group
+      label.col-md-2.control-label Status
+      .col-md-10
+        select.form-control(ng-model='$parent.edit.status')
+            option(value='0') Unconfirmed
+            option(value='1') Confirmed
+            option(value='2') Canceled
     include actions

@@ -6,34 +6,44 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   $scope.commons = {};
   $scope.feed = [];
   $scope.resources = [];
+  $scope.token =  window.localStorage.getItem('token');
+
+  //---- common vars ----//
   var token = '?token=' + window.localStorage.getItem('token');
 
   //---- private functions ----//
   var getList = function(model, cb){
-    if(!model){ return false; }
+    if(!model) { return false; }
 
     $scope.model = model;
     $http.get('/api/' + model + token)
-    .success(function(data) {
-      if(data.code !== "InternalError"){
+    .success(function(data, status) {
+      if(data.code !== "InternalError") {
         $scope.feed = data;
-        if(cb){cb();}
+        if(cb) { cb(); }
       }
     })
     .error(function(data, status) {
-      if(status === 401){ window.location = '/'; return false; }
-      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
+      if(status === 401) { window.location = '/'; return false; }
+      if(status === 405) {
+        $scope.error = 'Restricted access to ' + $scope.model;
+      }
+      if(data.error) {
+        $scope.error = data.error;
+      } else {
+        $scope.error = data;
+      }
     });
   };
 
-  var getOne = function(id){
-    for(var f in $scope.feed){
-      if($scope.feed[f]._id === id){
+  var getOne = function(id) {
+    for(var f in $scope.feed) {
+      if($scope.feed[f]._id === id) {
         $scope.edit = $scope.feed[f];
         break;
       }
     }
-    if(!$scope.edit){
+    if(!$scope.edit) {
       var newpath = '/' + $scope.model + '/new';
       if(window.location.pathname !== newpath){
         window.location.pathname = newpath;
@@ -41,67 +51,78 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
     }
   };
 
-  var getHash = function(){
+  var getHash = function() {
     var words = '';
-    for(var r in $scope.resources){
-      if($scope.resources.hasOwnProperty(r)){
+    for(var r in $scope.resources) {
+      if($scope.resources.hasOwnProperty(r)) {
         words = words + '/' + $scope.resources[r] + '/';
-        if($scope.resources.length-1 !== r){
+        if($scope.resources.length-1 != r) {
           words = words + '|';
         }
       }
     }
 
     var hashes = window.location.pathname.match(new RegExp('(W|^)('+ words +')(W|$)'));
-    if(hashes){ return hashes[0]; }else{ return false; }
+    if(hashes) { return hashes[0]; }else{ return false; }
   };
 
   //---- scope functions ----//
-  $scope.update = function(){
+  $scope.update = function() {
     $http.put('/api/' + $scope.model + '/' + $scope.id + token, $scope.edit)
-    .success(function() {
-      $scope.alert = 'Message: ' + $scope.model + ' updated';
+    .success(function(data, status) {
+      $scope.alert = 'Message: ' + $scope.model + ' has been update';
     })
-    .error(function(data) {
-      if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
+    .error(function(data, status) {
+      if(status===401) { $scope.error = 'Update rejected.'; return false; }
+      if(data.error) { $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
-  $scope.create = function(newModel){
+  $scope.create = function(newModel) {
     $http.post('/api/' + $scope.model + token, newModel)
-    .success(function(data) {
-      $scope.alert = 'Message: ' + $scope.model + ' created';
+    .success(function(data, status, headers, config) {
+      $scope.alert = 'Message: ' + $scope.model + ' Created';
       getList($scope.model, function(){
-        window.location.pathname = '/' + $scope.model + '/' + data[0]._id;
+        window.location.pathname = '/' + $scope.model + '/new';
       });
     })
-    .error(function(data) {
+    .error(function(data, status) {
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
-  $scope.delete = function(){
+  $scope.delete = function() {
     $http.delete('/api/' + $scope.model + '/' + $scope.id + token)
-    .success(function() {
-      $scope.alert = 'Message: ' + $scope.model + ' deleted';
+    .success(function(data, status, headers, config) {
+      $scope.alert = 'Message: ' + $scope.model + ' has been delete';
       var newpath = '/' + $scope.model + '/new';
       window.location.pathname = newpath;
     })
-    .error(function(data) {
+    .error(function(data, status) {
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };
 
-  $scope.setHashId = function(edit){
+  $scope.setHashId = function(edit) {
     window.location.pathname =  '/' + $scope.model + '/' + edit._id;
   };
 
-  $scope.toggle = function(element, value){
+  $scope.toggle = function(element, value) {
     if(element[value]){
       element[value] = false;
     }else{
       element[value] = true;
     }
+  };
+
+  $scope.toDate = function(timestamp) {
+    if(!timestamp){ return ''; }
+    return new Date(timestamp).toString();
+  };
+
+  $scope.toLocale = function(timestamp) {
+    if(!timestamp){ return ''; }
+    return new Date(timestamp).toLocaleString();
   };
 
   //---- event listeners ----//
@@ -113,7 +134,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   $rootScope.$on('load:resources', function (event, data) {
     $scope.resources = data;
     var hash = getHash();
-    if (hash){
+    if (hash) {
       hash = getHash();
       getList(hash);
       $rootScope.$emit('load:param', hash);
@@ -132,7 +153,7 @@ window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($sco
   });
 
   $scope.$watch('model', function(value) {
-    getList(value, function(){
+    getList(value, function() {
       getOne($scope.id);
     });
     console.log('watch:model');

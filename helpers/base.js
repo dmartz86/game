@@ -5,7 +5,7 @@ var CBase = function(model){
 CBase.prototype.List = function(query, callback){
   this.model.Find(query, function(err, results){
     callback(err, results);
-  });
+  }, {}, {}, 100, {createdAt: 1});
 };
 
 CBase.prototype.GetOne = function(query, callback){
@@ -40,6 +40,13 @@ CBase.prototype.UpdateById = function(idU, doc, callback){
   });
 };
 
+CBase.prototype.UpdateByIdAndQuery = function(idU, doc, query, callback){
+  query._id = idU;
+  this.model.UpdateByObjectId(query, doc, '_id', function(err, results){
+    callback(err, results);
+  });
+};
+
 CBase.prototype.Delete = function(query, callback){
   this.model.Remove(query, function(err, results){
     callback(err, results);
@@ -53,5 +60,19 @@ CBase.prototype.DeleteById = function(idD, callback){
   });
 };
 
-module.exports.CBase = CBase;
+CBase.prototype.incById = function(idU, key, qty, callback){
+  var incDoc = {$inc: {}};
+  incDoc.$inc[key] = qty;
+  var queryUpdate = {'_id': idU};
+  this.model.UpdateByObjectId(queryUpdate, incDoc, '_id', function(err, results){
+    callback(err, results);
+  });
+};
 
+CBase.prototype.aggregate = function(query, callback){
+  this.model.Aggregate(query, function(err, results){
+    callback(err, results);
+  });
+};
+
+module.exports.CBase = CBase;

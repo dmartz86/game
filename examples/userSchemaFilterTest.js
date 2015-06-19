@@ -12,7 +12,7 @@ var sayRes = function(err){
   else{ console.log('OK');}
 };
 
-filters.schemaFilter(userA, schema, function(err){ sayRes(err); });
-filters.schemaFilter(userB, schema, function(err){ sayRes(err); });
-filters.schemaFilter(userC, schema, function(err){ sayRes(err); });
-filters.schemaFilter(userD, schema, function(err){ sayRes(err); });
+filters.schemaFilter(userA, schema, function(err){ sayRes(err) });
+filters.schemaFilter(userB, schema, function(err){ sayRes(err) });
+filters.schemaFilter(userC, schema, function(err){ sayRes(err) });
+filters.schemaFilter(userD, schema, function(err){ sayRes(err) });

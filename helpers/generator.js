@@ -3,22 +3,22 @@ var Zappy = require('../helpers/zappy').Zappy;
 var AV    = require('../config.json').APIVARS;
 
 // API
-var addRoutes = function(api, route, controller, schema){
-  var zappy = new Zappy(controller, schema);
+var addRoutes = function(opts){
+  var zappy = new Zappy(opts);
 
-  api.get( AV.PRE + route, function(req, res){
+  opts.api.get( AV.PRE + opts.route, function(req, res){
     zappy.Get(req, res);
   });
-  api.get( AV.PRE + route + AV.ID, function(req, res){
+  opts.api.get( AV.PRE + opts.route + AV.ID, function(req, res){
     zappy.GetOne(req, res);
   });
-  api.del( AV.PRE + route + AV.ID, function(req, res){
+  opts.api.del( AV.PRE + opts.route + AV.ID, function(req, res){
     zappy.Del(req, res);
   });
-  api.post(AV.PRE + route, function(req, res){
+  opts.api.post(AV.PRE + opts.route, function(req, res){
     zappy.Post(req, res);
   });
-  api.put( AV.PRE + route + AV.ID, function(req, res){
+  opts.api.put( AV.PRE + opts.route + AV.ID, function(req, res){
     zappy.Put(req, res);
   });
 };
