@@ -1,5 +1,6 @@
 {
   "dburl": "mongodb://127.0.0.1/decktools",
+  "appname": "Deck App",
   "port": {
     "web": 1344,
     "api": 1345,
@@ -7,26 +8,39 @@
     "rds": 6379
   },
   "mandril":{
-    "from": "decktool@mail.co",
-    "name": "Decks Tools",
+    "from": "noreply@wrine.co",
+    "name": "Deck Tools",
     "token": ""
   },
   "TTL": 84000,
   "URL": {
-    "ACK": "http://deck.monoapps.co/api/email/confirm/"
+    "ACK": "http://deck.wrine.co/api/email/confirm/"
   },
   "APIVARS": {
     "PRE": "/",
     "ID": "/:id"
   },
   "resources": {
-    "tokens":  { "param": "token", "exclude": true },
-    "users":  {
+    "tokens": {
+      "admin": true,
+      "param": "token",
+      "exclude": true
+    },
+    "settings": {
+      "admin": false,
+      "param": "setting",
+      "exclude": true
+    },
+    "users": {
+      "admin": true,
       "param": "user",
-      "exclude": true,
+      "clean": {"password": 1},
       "schema": {
         "name":  1,
-        "email": 1
+        "date": 1,
+        "email": 1,
+        "status": 1,
+        "role": 1
       }
     },
     "groups": {

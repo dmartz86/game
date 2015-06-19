@@ -1,17 +1,16 @@
-var models    = require('../helpers/models');
-var usersData = require('./data/users.json');
-var rolesData = require('./data/roles.json');
+var db = require('../helpers/models');
+var roles = require('./data/roles.json');
+var users = require('./data/users.json');
+var settings = require('./data/settings.json');
 
-models.users.DropDB(function(){
-  for (var u in usersData){
-    if(usersData.hasOwnProperty(u)){
-      models.users.Insert(usersData[u]);
+var persist = function(list, model) {
+  for (var r in list){
+    if(list.hasOwnProperty(r)){
+      model.Insert(list[r]);
     }
   }
+}
 
-  for (var r in rolesData){
-    if(rolesData.hasOwnProperty(r)){
-      models.roles.Insert(rolesData[r]);
-    }
-  }
-});
+persist(roles, db.roles);
+persist(users, db.users);
+persist(settings, db.settings);

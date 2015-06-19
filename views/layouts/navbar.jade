@@ -8,31 +8,31 @@
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand(href='/') Deck tools
+    a.navbar-brand(href='/') Deck Tools
   .navbar-collapse.collapse.navbar-responsive-collapse
     ul.nav.navbar-nav(ng-show='resources.length')
-      li.dropdown.active
-        a.dropdown-toggle#resourcesLink(href='#', data-toggle='dropdown')
-          | Resources 
-          b.caret
-        ul.dropdown-menu
-          li(ng-repeat='r in resources')
-            a(ng-click='setResource(r)', ng-bind='r')
+      li
+        a(href='/') History
+      li(ng-repeat='rname in resources')
+        a(ng-click='setResource(rname)', href='')
+          span(ng-bind='capitalize(rname)')
 
     form.navbar-form.navbar-left.ng-cloack(ng-if='model')
-      input.form-control.col-lg-8.ng-cloak(ng-model="$parent.search", type='text', placeholder='Search in {{model}}')
+      input.form-control.col-lg-8.ng-cloak(ng-model="$parent.search", type='text', placeholder='Search on {{model}}')
     ul.nav.navbar-nav.navbar-right
       li.dropdown(ng-show='resources.length')
-        a.dropdown.active(ng-click='logout()', ng-if='resources.length') Logout
+        a.dropdown.active(ng-click='logout()', ng-if='resources.length',  href='') Log Out
     ul.nav.navbar-nav.navbar-right
       li.dropdown
         a.dropdown-toggle#themesLink(href='#', data-toggle='dropdown')
-          | Theme selector 
+          | Theme
           b.caret
         ul.dropdown-menu
-          li(ng-repeat='t in themes')
+          li(ng-repeat='t in themes', ng-class='{"active": t.css === theme}')
             a(ng-click='setTheme(t)' id='theme{{$index}}')
               span(ng-bind='t.name')
           li.divider
           li
             a(ng-click='delTheme()') Default
+      li(ng-show="token")
+        a(href='/account') Account

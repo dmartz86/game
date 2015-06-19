@@ -6,32 +6,32 @@ var sendM  = require('../helpers/email').sendMail;
 
 var addUser = function(email, cb){
   models.users.FindOne({email: email}, function(err, user){
-    if(err){ return cb('Error on registry email.'); }
+    if(err){ return cb('Email Registry Error.'); }
     if(user){ return cb(false); } // No Error if found user
 
     var code  = utils.createUUID();
     var query = {email: email, code: code};
-    models.users.Insert(query, function(err){
-      if(err){ return cb('Error registering email.'); }
+    models.users.Insert(query, function(err, user ){
+      if(err){ return cb('Email Registry Error.'); }
 
       sendM({
         html:
 '<div>' +
-  '<h1>Welcome to deck app</h1>' +
+  '<h1>Welcome to ' + config.appname + '</h1>' +
   '<p>' +
-    'Click on link to confirm your email ' +
-    '<a href="' + config.URL.ACK + code + '">Confirm email</a>' +
-    ' or copy and paste ' + config.URL.ACK + code +
+    'Open link ' +
+    '<a href="' + config.URL.ACK + code + '">Confirm Email</a>' +
+    ' or use this one ' + config.URL.ACK + code +
   '</p>' +
 '</div>',
-        text: 'Confirm Email',
-        subject: 'Email confirmation - Deck tools',
+        text: 'Email Confirmation',
+        subject: 'Registry - ' + config.appname + '',
         email: email,
         name: email,
         tags: ['register']
       }, function(err){
         if(err){ return cb(err); }
-        cb(false, 'Email registered.');
+        cb(false, 'Email Registered.');
       });
     });
   });
@@ -39,44 +39,44 @@ var addUser = function(email, cb){
 
 var confirmEmail = function(code, cb){
   models.users.FindOne({code: code}, function(err, user){
-    if(err){ return cb('Error on registry email.'); }
+    if(err){ return cb('Email Registry Error.'); }
     if(user){
       utils.createPwd({key: user._id.toString(), text: utils.createUUID()}, function(pwd, text){
 
         user.password = pwd;
         delete user.code;
-        user.status = 'OK';
+        user.status = 1;
         user.date = new Date().getTime();
 
         models.users.UpdateByObjectId({'_id': user._id.toString()}, user, '_id', function(err, ack){
-          if(err){ return cb('Error uptating user.'); }
+          if(err){ return cb('User Update Error.'); }
           if(ack){
             sendM({
               html:
 '<div>' +
-  '<h1>User email confirmed</h1>' +
+  '<h1>Access Confirm</h1>' +
   '<p>' +
-    'In order to access your account we have generated a temporal password for you: ' +
+    'First time access, use next password: ' +
   '</p>' +
   '<p>' + text + '</p>' +
 '</div>',
-              text: 'Confirm Access',
-              subject: 'First time access - Deck tools',
+              text: 'Access Confirm',
+              subject: 'First Time Access - ' + config.appname + '',
               email: user.email,
               name: user.email,
               tags: ['autopwd']
             }, function(err){
               if(err){ return cb(err); }
-              cb(false, 'Email registered.');
+              cb(false, 'Email Registered.');
             });
 
             return cb(false, user);
 
-          }else{ return cb('Not ackowledge response.'); }
+          }else{ return cb('Confirmation Not Found.'); }
         });
       });
     }else{
-      return cb('User not found.');
+      return cb('User Not Found.');
     }
   });
 };
@@ -93,7 +93,7 @@ var isPwdOK = function(email, text, cb){
             cb(err, token, isValid);
           });
         }else{
-          cb('Not valid auth', false, isValid);
+          cb('Invalid Auth', false, isValid);
         }
       });
     }

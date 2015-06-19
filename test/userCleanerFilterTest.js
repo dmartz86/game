@@ -8,6 +8,6 @@ var toClean = { password: 1, token: 1  };
 var sayRes = function(err, res){
   if(err){ console.error(err); }
   else{ console.log(res); }
-};
+}
 
 filters.cleanerFilter(user, toClean, function(err, res){ sayRes(err, res) });

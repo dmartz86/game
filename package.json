@@ -5,17 +5,20 @@
   "description": "MPill implementation",
   "main": "app.js",
   "scripts": {
-    "test": "mocha & gulp & protractor protractor.js"
+    "test": "mocha"
   },
   "author": "Daniel Martinez",
   "license": "MIT",
   "dependencies": {
     "express": "*",
+    "hamper": "*",
     "jade": "*",
+    "mandrill-api": "*",
     "mpill": "*",
     "restify": "*",
-    "mandrill-api": "*",
-    "hamper": "*",
+    "async": "*",
+    "socket.io": "*",
+    "redis": "*",
     "uuid": "*"
   },
   "devDependencies": {

@@ -1,11 +1,16 @@
 var cfg = require('./config.json').port;
-var api = require('./api/routes').api;
-var web = require('./web/routes').web;
+var api = require('./api/routes');
+var svr = require('./web/routes').svr;
+var sio = require('./sio/routes');
 
 api.listen(cfg.api, function() {
   console.log('app server up!');
 });
 
-web.listen(cfg.web, function() {
+svr.listen(cfg.web, function() {
   console.log('web server up!');
+});
+
+sio.listen(function() {
+  console.log('sio server up!');
 });

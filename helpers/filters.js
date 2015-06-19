@@ -25,9 +25,9 @@ var schemaFilter = function(target, schema, callback){
 
 // INPUT
 // returns 401 if is invalid or token and user.
-var authFilter = function(res, tokenId, callback) {
-  if(!tokenId || tokenId===null || tokenId.length<24){ return res.send(401); }
+var authFilter = function(res, tokenId, callback){
   var query = {"_id": tokenId};
+  if(!tokenId || tokenId===null || tokenId.length<24){ return res.send(401); }
   models.tokens.FindByObjectId(query, '_id', function(err, token){
     if(err){ console.log(err); return res.send(401); }
     if(!token){ return res.send(401); }
@@ -40,18 +40,37 @@ var authFilter = function(res, tokenId, callback) {
   });
 };
 
+// INPUT
+// Restricted only to admin users.
+// return fail: true/false
+var adminFilter = function(user, callback){
+  callback(!user.admin);
+};
+
 // OUPUT
 // returns a clean object to hide of user view
 var cleanerFilter = function(target, cleaner, callback){
-  for(var c in cleaner ){
-    if(target.hasOwnProperty(c)){
-      delete target[c];
+  if(target && target.length){
+    for(var i in target){
+      for(var c in cleaner){
+        if(target[i].hasOwnProperty(c)){
+          delete target[i][c];
+        }
+      }
+    }
+  }else{
+    for(var r in cleaner){
+      if(target.hasOwnProperty(r)){
+        delete target[r];
+      }
     }
   }
+
   callback(false, target);
 };
 
-module.exports.authFilter   = authFilter;
-module.exports.matchFilter  = matchFilter;
-module.exports.schemaFilter = schemaFilter;
+module.exports.authFilter    = authFilter;
+module.exports.adminFilter   = adminFilter;
+module.exports.matchFilter   = matchFilter;
+module.exports.schemaFilter  = schemaFilter;
 module.exports.cleanerFilter = cleanerFilter;

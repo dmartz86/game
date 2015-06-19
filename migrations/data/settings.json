@@ -1,0 +1,47 @@
+{
+  "0": {
+    "type" : "properties",
+    "data" : {
+      "name": "DeckApp",
+      "user": [],
+      "admin": ["users"],
+      "themes": [
+        { "name": "Cerulean",
+          "css": "/themes/cerulean.min.css" },
+        { "name": "Cosmo",
+          "css": "/themes/cosmo.min.css" },
+        { "name": "Cyborg",
+          "css": "/themes/cyborg.min.css" },
+        { "name": "Darkly",
+          "css": "/themes/darkly.min.css" },
+        { "name": "Flatly",
+          "css": "/themes/flatly.min.css" },
+        { "name": "Journal",
+          "css": "/themes/journal.min.css" },
+        { "name": "Lumen",
+          "css": "/themes/lumen.min.css" },
+        { "name": "Paper",
+          "css": "/themes/paper.min.css" },
+        { "name": "Readable",
+          "css": "/themes/readable.min.css" },
+        { "name": "Sandstone",
+          "css": "/themes/sandstone.min.css" },
+        { "name": "Simplex",
+          "css": "/themes/simplex.min.css" },
+        { "name": "Slate",
+          "css": "/themes/slate.min.css" },
+        { "name": "Spacelab",
+          "css": "/themes/spacelab.min.css" },
+        { "name": "Superhero",
+          "css": "/themes/superhero.min.css" },
+        { "name": "United",
+          "css": "/themes/united.min.css" },
+        { "name": "Yeti",
+          "css": "/themes/yeti.min.css" }
+      ],
+      "commons":{
+        "sizes": []
+      }
+    }
+  }
+}

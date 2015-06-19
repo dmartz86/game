@@ -5,7 +5,7 @@ var utils = require('../../helpers/utils');
 var models = require('../../helpers/models');
 var testUser = {
   email: 'tester@monoapps.co',
-  status: 'OK',
+  status: 1,
   date: new Date().getTime()
 };
 var key, thetext;
@@ -14,15 +14,15 @@ describe('login, navbar, filter, logout', function() {
 
   beforeEach(function(done) {
     models.users.Insert(testUser, function(err, users){
-
+      users = (users.ops ? users.ops : users);
       expect(err).toBe(null);
-      expect(users.ops.length).toBe(1);
+      expect(users.length).toBe(1);
 
-      var user = users.ops[0];
+      var user = users[0];
       key = user._id.toString();
       var options = {
         key: key,
-        text: 'test'
+        text: utils.createUUID()
       };
       utils.createPwd(options, function(pwd, text){
 
@@ -34,7 +34,6 @@ describe('login, navbar, filter, logout', function() {
         var query = {'_id': key};
         user.password = pwd;
         models.users.UpdateByObjectId(query, user, '_id', function(err, ack){
-          console.log(ack)
           expect(err).toBe(null);
           expect(ack.result.nModified).toBe(1);
           done();
@@ -59,7 +58,7 @@ describe('login, navbar, filter, logout', function() {
 
     var queryToken = 'return window.localStorage.getItem("token");';
     browser.executeScript(queryToken).then(function(token,b){
-      //expect(token).toBe(24);
+      expect(token).toBe(24);
     });
 
     var resourcesRepeater = element.all(by.repeater('r in resources'));

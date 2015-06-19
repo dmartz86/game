@@ -4,45 +4,55 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
   $scope.themes = [];
   $scope.resources = [];
   var token = '?token=' + window.localStorage.getItem('token');
+  $scope.token = window.localStorage.getItem('token');
 
-  var getTheme = function(){
-    var tbase = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css';
+  var getTheme = function() {
+    var tbase = '/themes/paper.min.css';
     var theme = window.localStorage.getItem('theme');
-    if(theme === null){ return tbase;  }else{ return theme; }
+    if(theme === null) { return tbase;  }else{ return theme; }
   };
 
-  $scope.setTheme = function(theme){
+  $scope.setTheme = function(theme) {
     $scope.theme = theme.css;
     window.localStorage.setItem('theme', theme.css);
   };
 
-  $scope.delTheme = function(){
+  $scope.delTheme = function() {
     $scope.theme =  false;
     window.localStorage.removeItem('theme');
   };
 
-  $scope.setResource = function(resource){
+  $scope.setResource = function(resource) {
     $rootScope.$emit('change:model', resource);
   };
 
-  $scope.logout = function(){
+  $scope.logout = function() {
     window.localStorage.removeItem('token');
     window.location = '/';
   };
 
-  $scope.getProperties = function(){
+  $scope.getProperties = function() {
     $http.get('/api/properties' + token)
-    .success(function(data) {
-      if(data.code !== "InternalError"){
+    .success(function(data, status) {
+      if(data.code !== "InternalError") {
         $scope.themes = data.themes;
         $scope.resources = data.resources;
         $rootScope.$emit('load:commons', data.commons || {});
         $rootScope.$emit('load:resources', data.resources || []);
       }
     })
-    .error(function(data) {
+    .error(function(data, status) {
+      if(status === 401){
+        window.localStorage.clear();
+        window.location = '/';
+      }
+
       console.log(data);
     });
+  };
+
+  $scope.capitalize = function(text) {
+    return text.charAt(0).toUpperCase() + text.substring(1, text.length);
   };
 
   $rootScope.$on('load:param', function (event, data) {
@@ -56,7 +66,7 @@ window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($sc
 
   $scope.theme = getTheme();
 
-  if(token!=='?token=null'){
+  if(token!=='?token=null') {
     $scope.getProperties();
   }
 
