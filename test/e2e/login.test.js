@@ -51,15 +51,16 @@ describe('login, navbar, filter, logout', function() {
 
   it('should select a theme and CRUD a group', function() {
     browser.get('http://deck.wrine.co');
+    browser.driver.manage().window().maximize();
     browser.waitForAngular();
     element(by.model('user.email')).sendKeys(testUser.email);
     element(by.model('user.password')).sendKeys(thetext);
     element(by.id('loginLink')).click();
 
-    var queryToken = 'return window.localStorage.getItem("token");';
-    browser.executeScript(queryToken).then(function(token,b){
-      expect(token).toBe(24);
-    });
+    var token = browser.executeScript('return window.localStorage.getItem("token");');
+    expect(token).toBe(24);
+
+    browser.sleep(20000);
 
     var resourcesRepeater = element.all(by.repeater('r in resources'));
     expect(resourcesRepeater.count()).toEqual(4);

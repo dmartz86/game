@@ -7,11 +7,11 @@ var models = require('../../helpers/models');
 describe('bad login credentials', function() {
   it('should return 401', function() {
     browser.get('http://deck.wrine.co');
+    browser.driver.manage().window().maximize();
     browser.waitForAngular();
     element(by.model('user.email')).sendKeys('unauthorized@monoapps.co');
     element(by.model('user.password')).sendKeys('unauthorized');
-    element(by.id('loginLink')).click();
-
+    element(by.css('[ng-click="login()"]')).click();
     expect(element(by.binding('error')).getInnerHtml()).toEqual('Unauthorized');
   });
 });

@@ -9,8 +9,10 @@ var persist = function(list, model) {
       model.Insert(list[r]);
     }
   }
-}
+};
 
-persist(roles, db.roles);
-persist(users, db.users);
-persist(settings, db.settings);
+db.roles.DropDB(function(){
+  persist(roles, db.roles);
+  persist(users, db.users);
+  persist(settings, db.settings);
+});
