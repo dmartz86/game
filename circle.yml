@@ -11,6 +11,9 @@ machine:
 dependencies:
   pre:
     - sudo rm /etc/apt/sources.list.d/google-chrome.list
+    - sudo cp /home/ubuntu/deck/sources.list /etc/apt/sources.list
+    - sudo apt-get update
+    - sudo apt-get autoremove
     - sudo apt-get install nginx
     - sudo rm /etc/nginx/sites-enabled/default
     - sudo cp /home/ubuntu/deck/deck.conf /etc/nginx/sites-enabled/deck.conf
@@ -21,4 +24,3 @@ dependencies:
     # make chrome lxc-friendly
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - rm google-chrome-stable.deb
-
