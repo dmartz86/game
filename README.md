@@ -24,7 +24,7 @@ node migrations/seed.js
 
 ## deploy
 
-Use [nginx config.](other_file.md)
+Use [nginx config.](deck.conf)
 
 ## tools
 `````js
