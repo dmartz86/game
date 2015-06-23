@@ -1,4 +1,4 @@
-window.app.controller('NavBarCtrl',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('NavBarController',['$scope','$rootScope', '$http', function($scope, $rootScope, $http) {
 
   $scope.search = '';
   $scope.themes = [];

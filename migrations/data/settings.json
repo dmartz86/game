@@ -2,8 +2,8 @@
   "0": {
     "type" : "properties",
     "data" : {
-      "name": "DeckApp",
-      "user": [],
+      "name": "deckApp",
+      "user": ["groups", "roles", "tasks", "products"],
       "admin": ["users"],
       "themes": [
         { "name": "Cerulean",

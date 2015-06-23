@@ -1,4 +1,4 @@
-window.app.controller('ListCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('ListController',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
   //---- common vars ----//
   $scope.model = false;

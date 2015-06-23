@@ -2,3 +2,5 @@ node_modules
 config.json
 public/application.min.js
 public/application.min.css
+public/fonts
+public/vendor

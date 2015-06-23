@@ -1,4 +1,4 @@
-.navbar.navbar-default(ng-controller='NavBarCtrl')
+.navbar.navbar-default(ng-controller='NavBarController')
 
   var(ng-init='model= #{JSON.stringify(model)}')
   link(rel='stylesheet', ng-href="{{theme}}", ng-if='theme')
@@ -11,8 +11,6 @@
     a.navbar-brand(href='/') Deck Tools
   .navbar-collapse.collapse.navbar-responsive-collapse
     ul.nav.navbar-nav(ng-show='resources.length')
-      li
-        a(href='/') History
       li(ng-repeat='rname in resources')
         a(ng-click='setResource(rname)', href='')
           span(ng-bind='capitalize(rname)')

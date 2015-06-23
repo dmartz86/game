@@ -45,31 +45,25 @@ describe('login, navbar, filter, logout', function() {
   afterEach(function() {
     models.users.Remove(testUser, function(err, ack){
       expect(err).toEqual(jasmine.any(String));
-      expect(ack).toBe(1);
+      expect(ack.result.ok).toBe(1);
     });
   });
 
   it('should select a theme and CRUD a group', function() {
     browser.get('http://deck.wrine.co');
-    browser.driver.manage().window().maximize();
+    browser.manage().window().maximize();
     browser.waitForAngular();
     element(by.model('user.email')).sendKeys(testUser.email);
     element(by.model('user.password')).sendKeys(thetext);
-    element(by.id('loginLink')).click();
-
-    var token = browser.executeScript('return window.localStorage.getItem("token");');
-    expect(token).toBe(24);
-
-    browser.sleep(20000);
-
-    var resourcesRepeater = element.all(by.repeater('r in resources'));
-    expect(resourcesRepeater.count()).toEqual(4);
+    element(by.css('[ng-click="login()"]')).click();
 
     var resourceList = element.all(by.binding('r'));
     expect(resourceList.count()).toEqual(4);
 
     properties.resources.forEach(function(r,i){
-      expect(resourceList.get(i).getInnerHtml()).toEqual(r);
+      resourceList.get(i).getInnerHtml().then(function(a,b){
+        expect(a.toLowerCase()).toEqual(r);
+      });
     });
 
     var themeList = element.all(by.repeater('t in themes'));
@@ -80,9 +74,7 @@ describe('login, navbar, filter, logout', function() {
       element(by.id('theme'+i)).click();
     });
 
-    element(by.id('resourcesLink')).click();
     resourceList.get(0).click();
-    element(by.id('addLink')).click();
 
     var groupName = 'Group' + new Date().getTime();
     var nameInput = element(by.model('$parent.edit.name'));
@@ -97,7 +89,10 @@ describe('login, navbar, filter, logout', function() {
     var groupList = element.all(by.repeater('f in $parent.feed'));
     expect(groupList.count()).toEqual(1);
 
-    element(by.id('deleteLink')).click();
+    var groupsBind = element.all(by.binding('f'));
+    groupsBind.get(0).click();
+
+    element(by.css('[ng-click="$parent.delete()"]')).click();
     searchInput.sendKeys(groupName);
     expect(searchInput.getAttribute('value')).toBe(groupName);
 

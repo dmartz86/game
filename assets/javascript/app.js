@@ -1,4 +1,4 @@
-var app = window.angular.module('TMGApp', ['ng', 'ngResource']);
+var app = window.angular.module('deckApp', ['ng', 'ngResource']);
 if(app){
   console.log('ng:app');
   var socket = io();

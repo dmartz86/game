@@ -1,4 +1,4 @@
-window.app.controller('HomeCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('HomeController',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
   $scope.token =  window.localStorage.getItem('token');
   $scope.view = 'login';

@@ -1,4 +1,4 @@
-window.app.controller('AccountCtrl',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+window.app.controller('AccountController',['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
   //---- common vars ----//
   $scope.token =  window.localStorage.getItem('token');
