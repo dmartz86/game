@@ -15,6 +15,8 @@ describe('login, navbar, filter, logout', function() {
 
   beforeEach(function(done) {
     models.users.Insert(testUser, function(err, users) {
+      if(err) { process.exit(); }
+
       users = (users.ops ? users.ops : users);
       expect(err).toBe(null);
       expect(users.length).toBe(1);
@@ -26,7 +28,6 @@ describe('login, navbar, filter, logout', function() {
         text: utils.createUUID()
       };
       utils.createPwd(options, function(pwd, text) {
-
         expect(text).toEqual(jasmine.any(String));
         expect(pwd.type).toEqual(jasmine.any(String));
         expect(pwd.value).toEqual(jasmine.any(String));
