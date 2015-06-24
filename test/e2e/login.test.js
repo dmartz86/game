@@ -3,6 +3,7 @@ var properties = require('../../assets/properties.json');
 var resources = require('../../config.json').resources;
 var utils = require('../../helpers/utils');
 var models = require('../../helpers/models');
+var initialize = require('../helpers/initialize');
 var testUser = {
   email: 'tester@monoapps.co',
   status: 1,
@@ -50,9 +51,8 @@ describe('login, navbar, filter, logout', function() {
   });
 
   it('should change theme', function() {
-    browser.get('http://deck.wrine.co');
-    browser.manage().window().maximize();
-    browser.waitForAngular();
+    initialize(browser);
+
     element(by.model('user.email')).sendKeys(testUser.email);
     element(by.model('user.password')).sendKeys(thetext);
     element(by.css('[ng-click="login()"]')).click();
@@ -76,9 +76,7 @@ describe('login, navbar, filter, logout', function() {
   });
 
   it('should CRUD and search each resource', function() {
-    browser.get('http://deck.wrine.co');
-    browser.manage().window().maximize();
-    browser.waitForAngular();
+    initialize(browser);
 
     var resourceList = element.all(by.binding('r'));
     expect(resourceList.count()).toEqual(4);
@@ -100,23 +98,19 @@ describe('login, navbar, filter, logout', function() {
         var itemTwiceList = element.all(by.repeater('f in $parent.feed'));
         expect(itemTwiceList.count()).toEqual(1);
 
-
-        var groupsBind = element.all(by.binding('f'));
-        groupsBind.get(0).click();
+        var itemBind = element.all(by.binding('f'));
+        itemBind.get(0).click();
 
         element(by.css('[ng-click="$parent.delete()"]')).click();
 
-        itemTwiceList = element.all(by.repeater('f in $parent.feed'));
-        expect(itemTwiceList.count()).toEqual(size);
-
+        var itemAgainList = element.all(by.repeater('f in $parent.feed'));
+        expect(itemAgainList.count()).toEqual(size);
       });
     });
   });
 
   it('should destroy session', function() {
-    browser.get('http://deck.wrine.co');
-    browser.manage().window().maximize();
-    browser.waitForAngular();
+    initialize(browser);
 
     element( by.css('[ng-click="logout()"]') ).click();
   });
