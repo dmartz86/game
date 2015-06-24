@@ -17,7 +17,7 @@ window.app.controller('ListController',['$scope', '$rootScope', '$http', functio
 
     $scope.model = model;
     $http.get('/api/' + model + token)
-    .success(function(data, status) {
+    .success(function(data) {
       if(data.code !== "InternalError") {
         $scope.feed = data;
         if(cb) { cb(); }
@@ -56,7 +56,7 @@ window.app.controller('ListController',['$scope', '$rootScope', '$http', functio
     for(var r in $scope.resources) {
       if($scope.resources.hasOwnProperty(r)) {
         words = words + '/' + $scope.resources[r] + '/';
-        if($scope.resources.length-1 != r) {
+        if($scope.resources.length-1 !== r) {
           words = words + '|';
         }
       }
@@ -69,7 +69,7 @@ window.app.controller('ListController',['$scope', '$rootScope', '$http', functio
   //---- scope functions ----//
   $scope.update = function() {
     $http.put('/api/' + $scope.model + '/' + $scope.id + token, $scope.edit)
-    .success(function(data, status) {
+    .success(function() {
       $scope.alert = 'Message: ' + $scope.model + ' has been update';
     })
     .error(function(data, status) {
@@ -80,8 +80,8 @@ window.app.controller('ListController',['$scope', '$rootScope', '$http', functio
 
   $scope.create = function(newModel) {
     $http.post('/api/' + $scope.model + token, newModel)
-    .success(function(data, status, headers, config) {
-      $scope.alert = 'Message: ' + $scope.model + ' Created';
+    .success(function() {
+      $scope.alert = 'Message: ' + $scope.model + ' created';
       getList($scope.model, function(){
         window.location.pathname = '/' + $scope.model + '/new';
       });
@@ -93,12 +93,12 @@ window.app.controller('ListController',['$scope', '$rootScope', '$http', functio
 
   $scope.delete = function() {
     $http.delete('/api/' + $scope.model + '/' + $scope.id + token)
-    .success(function(data, status, headers, config) {
+    .success(function() {
       $scope.alert = 'Message: ' + $scope.model + ' has been delete';
       var newpath = '/' + $scope.model + '/new';
       window.location.pathname = newpath;
     })
-    .error(function(data, status) {
+    .error(function(data) {
       if(data.error){ $scope.error = data.error; }else{ $scope.error = data; }
     });
   };

@@ -2,16 +2,16 @@
 var filters = require('./filters');
 
 // OUPUT / response manager
-var response = function(req, res, err, rsp, clean){
-  if(err){ console.trace(err); return res.json(500); }
-  if(!rsp){ return res.send(404); }
-  if(rsp===1){ return res.send(200); }
-  if(clean){
-    filters.cleanerFilter(rsp, clean, function(err, target){
-      res.json(target);
+var response = function(opts){
+  if(opts.err){ console.trace(opts.err); return opts.res.json(500); }
+  if(!opts.rsp){ return opts.res.send(404); }
+  if(opts.rsp===1){ return opts.res.send(200); }
+  if(opts.clean){
+    filters.cleanerFilter(opts.rsp, opts.clean, function(err, target){
+      opts.res.json(target);
     });
   }else{
-    res.json(rsp);
+    opts.res.json(opts.rsp);
   }
 };
 

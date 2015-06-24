@@ -52,9 +52,11 @@ var adminFilter = function(user, callback){
 var cleanerFilter = function(target, cleaner, callback){
   if(target && target.length){
     for(var i in target){
-      for(var c in cleaner){
-        if(target[i].hasOwnProperty(c)){
-          delete target[i][c];
+      if(target.hasOwnProperty(i)){
+        for(var c in cleaner){
+          if(target[i].hasOwnProperty(c)){
+            delete target[i][c];
+          }
         }
       }
     }

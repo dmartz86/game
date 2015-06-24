@@ -7,9 +7,7 @@ var account = require('./account');
 var utils = require('../helpers/utils');
 var controllers = require('./controllers');
 var generator = require('../helpers/generator');
-var review = require('../helpers/manager').review;
 var resources = require("../config.json").resources;
-var manager = require('../helpers/manager').response;
 
 // settings
 var api = restify.createServer();
