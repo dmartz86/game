@@ -1,6 +1,5 @@
 // references
 var register = require("./register");
-var utils = require('../helpers/utils');
 var controllers = require('./controllers');
 var review = require('../helpers/manager').review;
 var manager = require('../helpers/manager').response;
@@ -33,7 +32,7 @@ var signup = function(req, res){
 };
 
 var confirm = function(req, res){
-  register.confirmEmail(req.params.code, function(err, user){
+  register.confirmEmail(req.params.code, function(err){
     if(err){ return res.send(401, {message: err}); }
     res.header('Location', '/registered');
     res.send(302, {message: 'User Confirmed'});
@@ -51,7 +50,7 @@ var properties = function(req, res){
       }
       delete rsp.data.user;
       delete rsp.data.admin;
-      manager(req, res, err, rsp.data);
+      manager({req: req, res: res, err: err, rsp: rsp.data});
     });
   });
 };

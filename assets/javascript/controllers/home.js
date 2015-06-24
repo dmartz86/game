@@ -13,7 +13,7 @@ window.app.controller('HomeController',['$scope', '$rootScope', '$http', functio
     return window.angular.equals($scope.view, name);
   };
 
-  $scope.doRegister = function(name){
+  $scope.doRegister = function(){
     $http.post('/api/register/'+$scope.register.email)
     .success(function(data){
       if(data.code !== 'InternalError'){
@@ -43,9 +43,9 @@ window.app.controller('HomeController',['$scope', '$rootScope', '$http', functio
     });
   };
 
-  $scope.login = function(edit){
+  $scope.login = function(){
     $http.post('/api/login', $scope.user)
-    .success(function(data, status) {
+    .success(function(data) {
       if(data.code !== 'InternalError'){
         $scope.error = false;
         window.localStorage.setItem('token', data.token);

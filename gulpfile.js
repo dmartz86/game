@@ -54,7 +54,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('app', function() {
-  var p = console.log;
   var cfg = require('./config.json').port;
   var api = require('./api/routes');
   var svr = require('./web/routes').svr;

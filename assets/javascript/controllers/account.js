@@ -2,7 +2,6 @@ window.app.controller('AccountController',['$scope', '$rootScope', '$http', func
 
   //---- common vars ----//
   $scope.token =  window.localStorage.getItem('token');
-  var pathname = window.location.pathname;
   var token = '?token=' + window.localStorage.getItem('token');
 
   if(!$scope.token){
@@ -13,17 +12,17 @@ window.app.controller('AccountController',['$scope', '$rootScope', '$http', func
   $scope.saveAccount = function(){
     $http.post('/api/account' + token, $scope.account)
     .success(function() {
-      $scope.success = 'Informacion atualizada satisfactoriamente.';
+      $scope.success = 'Account updated';
       console.log('post:account');
     })
     .error(function() {
-      $scope.error = 'Falló al actualizar la información de la cuenta.';
+      $scope.error = 'Fail updating';
     });
   };
 
   $scope.isNotValid = function(){
     if($scope.newPwd !== $scope.again) {
-      $scope.alert = 'La nueva clave y su confirmación no coinciden.';
+      $scope.alert = 'Password does not match';
       return true;
     }else{
       $scope.alert = '';
@@ -43,11 +42,11 @@ window.app.controller('AccountController',['$scope', '$rootScope', '$http', func
 
     $http.post('/api/security' + token, query )
     .success(function() {
-      $scope.success = 'Clave actualizada correctamente.';
+      $scope.success = 'Password updated';
       console.log('post:account');
     })
     .error(function() {
-      $scope.error = 'Falló al actualizar la clave.';
+      $scope.error = 'Fail updating';
     });
   };
 
@@ -58,8 +57,8 @@ window.app.controller('AccountController',['$scope', '$rootScope', '$http', func
       $scope.account = data;
       console.log('info:account');
     })
-    .error(function(data) {
-      $scope.error = 'Falló al obtener la infomación de la cuenta.';
+    .error(function() {
+      $scope.error = 'Fail geting account details';
       console.log('get:account');
     });
   };
@@ -69,7 +68,6 @@ window.app.controller('AccountController',['$scope', '$rootScope', '$http', func
     window.location.pathname = '/' + data + '/new';
     console.log('change:model');
   });
-
 
   //----   init  ---//
   if($scope.token){

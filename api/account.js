@@ -7,14 +7,14 @@ var find = function(req, res){
   review({ req: req, res: res }, function(err, opt){
     var rsp = opt.user;
     delete rsp.password;
-    manager(req, res, err, rsp);
+    manager({req: req, res: res, err: err, rsp: rsp});
   });
 };
 
 var update = function(req, res){
   review({ req: req, res: res }, function(err, opt){
     controllers.users.UpdateById(opt.user._id.toString(), {$set: {name: req.body.name} }, function(err, rsp){
-      manager(req, res, err, rsp);
+      manager({req: req, res: res, err: err, rsp: rsp});
     });
   });
 };
@@ -31,7 +31,7 @@ var security = function(req, res){
         query.text = req.body.newPwd;
         utils.createPwd(query, function(pwd){
           controllers.users.UpdateById(opt.user._id.toString(), {$set: {password: pwd} }, function(err, rsp){
-            manager(req, res, err, rsp);
+            manager({req: req, res: res, err: err, rsp: rsp});
           });
         });
       }else{
