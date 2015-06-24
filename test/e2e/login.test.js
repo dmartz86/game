@@ -13,7 +13,7 @@ var key, thetext;
 describe('login, navbar, filter, logout', function() {
 
   beforeEach(function(done) {
-    models.users.Insert(testUser, function(err, users){
+    models.users.Insert(testUser, function(err, users) {
       users = (users.ops ? users.ops : users);
       expect(err).toBe(null);
       expect(users.length).toBe(1);
@@ -24,7 +24,7 @@ describe('login, navbar, filter, logout', function() {
         key: key,
         text: utils.createUUID()
       };
-      utils.createPwd(options, function(pwd, text){
+      utils.createPwd(options, function(pwd, text) {
 
         expect(text).toEqual(jasmine.any(String));
         expect(pwd.type).toEqual(jasmine.any(String));
@@ -33,7 +33,7 @@ describe('login, navbar, filter, logout', function() {
         thetext = text;
         var query = {'_id': key};
         user.password = pwd;
-        models.users.UpdateByObjectId(query, user, '_id', function(err, ack){
+        models.users.UpdateByObjectId(query, user, '_id', function(err, ack) {
           expect(err).toBe(null);
           expect(ack.result.nModified).toBe(1);
           done();
@@ -43,13 +43,13 @@ describe('login, navbar, filter, logout', function() {
   });
 
   afterEach(function() {
-    models.users.Remove(testUser, function(err, ack){
-      expect(err).toEqual(jasmine.any(String));
+    models.users.Remove(testUser, function(err, ack) {
+      expect(err).toEqual(null);
       expect(ack.result.ok).toBe(1);
     });
   });
 
-  it('should select a theme and CRUD a group', function() {
+  it('should change theme', function() {
     browser.get('http://deck.wrine.co');
     browser.manage().window().maximize();
     browser.waitForAngular();
@@ -60,8 +60,8 @@ describe('login, navbar, filter, logout', function() {
     var resourceList = element.all(by.binding('r'));
     expect(resourceList.count()).toEqual(4);
 
-    properties.resources.forEach(function(r,i){
-      resourceList.get(i).getInnerHtml().then(function(a,b){
+    properties.resources.forEach(function(r,i) {
+      resourceList.get(i).getInnerHtml().then(function(a,b) {
         expect(a.toLowerCase()).toEqual(r);
       });
     });
@@ -69,35 +69,54 @@ describe('login, navbar, filter, logout', function() {
     var themeList = element.all(by.repeater('t in themes'));
     expect(themeList.count()).toEqual(16);
 
-    themeList.each(function(e,i){
+    themeList.each(function(e,i) {
       element(by.id('themesLink')).click();
       element(by.id('theme'+i)).click();
     });
+  });
 
-    resourceList.get(0).click();
+  it('should CRUD and search each resource', function() {
+    browser.get('http://deck.wrine.co');
+    browser.manage().window().maximize();
+    browser.waitForAngular();
 
-    var groupName = 'Group' + new Date().getTime();
-    var nameInput = element(by.model('$parent.edit.name'));
-    nameInput.sendKeys(groupName);
+    var resourceList = element.all(by.binding('r'));
+    expect(resourceList.count()).toEqual(4);
 
-    element(by.id('createLink')).click();
+    properties.resources.forEach(function(r,i) {
+      resourceList.get(i).click();
+      itemList = element.all(by.repeater('f in $parent.feed'));
+      itemList.count().then(function(size){
+        var resName = r + new Date().getTime();
+        var inputName = element(by.model('$parent.edit.name'));
+        inputName.sendKeys(resName);
 
-    var searchInput = element(by.model('$parent.search'));
-    searchInput.sendKeys(groupName);
-    expect(searchInput.getAttribute('value')).toBe(groupName);
+        element(by.id('createLink')).click();
 
-    var groupList = element.all(by.repeater('f in $parent.feed'));
-    expect(groupList.count()).toEqual(1);
+        var searchInput = element(by.model('$parent.search'));
+        searchInput.sendKeys(resName);
+        expect(searchInput.getAttribute('value')).toBe(resName);
 
-    var groupsBind = element.all(by.binding('f'));
-    groupsBind.get(0).click();
+        var itemTwiceList = element.all(by.repeater('f in $parent.feed'));
+        expect(itemTwiceList.count()).toEqual(1);
 
-    element(by.css('[ng-click="$parent.delete()"]')).click();
-    searchInput.sendKeys(groupName);
-    expect(searchInput.getAttribute('value')).toBe(groupName);
 
-    groupList = element.all(by.repeater('f in $parent.feed'));
-    expect(groupList.count()).toEqual(0);
+        var groupsBind = element.all(by.binding('f'));
+        groupsBind.get(0).click();
+
+        element(by.css('[ng-click="$parent.delete()"]')).click();
+
+        itemTwiceList = element.all(by.repeater('f in $parent.feed'));
+        expect(itemTwiceList.count()).toEqual(size);
+
+      });
+    });
+  });
+
+  it('should destroy session', function() {
+    browser.get('http://deck.wrine.co');
+    browser.manage().window().maximize();
+    browser.waitForAngular();
 
     element( by.css('[ng-click="logout()"]') ).click();
   });
