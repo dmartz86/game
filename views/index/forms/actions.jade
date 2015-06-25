@@ -1,11 +1,11 @@
 .form-group
-  .col-md-10.col-md-offset-2(ng-if='$parent.edit._id')
-    a.btn.btn-success.col-md-6#updateLink(ng-click='$parent.update()', 
+  .col-xs-12.col-sm-12.col-md-10.col-md-offset-2(ng-if='$parent.edit._id')
+    a.btn.btn-success.col-xs-12.col-sm-12.col-md-6#updateLink(ng-click='$parent.update()', 
       ng-disabled='$parent.modelForm.$invalid')
       i.glyphicon.glyphicon-edit &nbsp;Update
-    a.btn.btn-danger.col-md-6#deleteLink(ng-click='$parent.delete()')
+    a.btn.btn-danger.col-xs-12.col-sm-12.col-md-6#deleteLink(ng-click='$parent.delete()')
       i.glyphicon.glyphicon-trash &nbsp;Delete
-  .col-md-10.col-md-offset-2(ng-if='!$parent.edit._id')
-    a.btn.btn-success.col-md-12#createLink(ng-click='$parent.create($parent.edit)', 
+  .col-xs-12.col-sm-12.col-md-10.col-md-offset-2(ng-if='!$parent.edit._id')
+    a.btn.btn-success.col-xs-12.col-sm-12.col-md-12#createLink(ng-click='$parent.create($parent.edit)', 
       ng-disabled='$parent.modelForm.$invalid')
       i.glyphicon.glyphicon-ok &nbsp;Create

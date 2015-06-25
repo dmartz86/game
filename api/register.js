@@ -20,8 +20,8 @@ var addUser = function(email, cb){
   '<h1>Welcome to ' + config.appname + '</h1>' +
   '<p>' +
     'Open link ' +
-    '<a href="' + config.URL.ACK + code + '">Confirm Email</a>' +
-    ' or use this one ' + config.URL.ACK + code +
+    '<a href="' + config.URL.BASE + config.URL.ACK + code + '">Confirm Email</a>' +
+    ' or use this one ' + config.URL.BASE + config.URL.ACK + code +
   '</p>' +
 '</div>',
         text: 'Email Confirmation',

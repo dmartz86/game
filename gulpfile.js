@@ -14,7 +14,10 @@ var scripts = [
   './*.js',
   'assets/javascript/*',
   'assets/javascript/services/*.js',
-  'assets/javascript/controllers/*.js'
+  'assets/javascript/controllers/*.js',
+  'test/*.js',
+  'test/e2e/*.js',
+  'test/helpers/*.js'
 ];
 var jsng = [
   'assets/javascript/app.js',

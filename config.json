@@ -1,6 +1,6 @@
 {
   "dburl": "mongodb://127.0.0.1/decktools",
-  "appname": "Deck App",
+  "site": "Deck App",
   "port": {
     "web": 1344,
     "api": 1345,
@@ -14,12 +14,24 @@
   },
   "TTL": 84000,
   "URL": {
-    "ACK": "http://deck.wrine.co/api/email/confirm/"
+    "BASE": "http://deck.wrine.co",
+    "ACK": "/api/email/confirm/"
   },
   "APIVARS": {
     "PRE": "/",
     "ID": "/:id"
   },
+  "views":[
+    "groups",
+    "roles",
+    "tasks",
+    "products"],
+  "pages":[
+    "account",
+    "recover",
+    "registered",
+    "docs",
+    "dev"],
   "resources": {
     "tokens": {
       "admin": true,
@@ -69,7 +81,6 @@
         "name": 1,
         "code": 1,
         "price": 1,
-        "sizes": 1,
         "image": 1,
         "comments": 1
       }
