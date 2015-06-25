@@ -3,35 +3,34 @@ var express = require('express');
 var web = express();
 var svr = require('http').createServer(web);
 var sio = require('socket.io')(svr);
-
 var generator = require('../helpers/generator');
+var site = require('../config.json').site;
+var pages = require('../config.json').pages;
 var resources = require('../config.json').resources;
-
-for(var route in resources){
-  if(resources.hasOwnProperty(route)){
-    generator.addView(web, route);
-  }
-}
 
 // settings
 web.set('views', __dirname.replace('/web', '/views'));
 web.set('view engine', 'jade');
 web.use(express.static(__dirname.replace('/web', '/public')));
 
+// resources
+for(var route in resources){
+  if(resources.hasOwnProperty(route)){
+    generator.addView(web, route);
+  }
+}
+
+// additions
+for(var p in pages){
+  if(resources.hasOwnProperty(route)){
+    var page = pages[p];
+    generator.addPage(web, page);
+  }
+}
+
+// main
 web.get('/', function(req, res){
-  res.render('index/index');
-});
-
-web.get('/account', function(req, res){
-  res.render('account/index');
-});
-
-web.get('/registered', function(req, res){
-  res.render('registered/index');
-});
-
-web.get('/recover', function(req, res){
-  res.render('recover/index');
+  res.render('index/index', {site: site});
 });
 
 module.exports.web = web;

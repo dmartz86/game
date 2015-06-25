@@ -1,33 +1,30 @@
 include ../layouts/app
   head
-    title Registered
+    title Development
     link(rel="icon" href="/img/favicon.ico")
     link(rel='stylesheet', href='/themes/paper.min.css')
+    link(rel='stylesheet', ng-href="{{theme}}", ng-if='theme')
   body
     .navbar.navbar-default
-      .navbar-header
+      .navbar-header 
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-        a.navbar-brand(href='/') #{site}
+        a.navbar-brand(href='/') Development
       .navbar-collapse.collapse.navbar-responsive-collapse
         ul.nav.navbar-nav.navbar-right
           li.dropdown
-            a.dropdown.active(href='') API
+            a.dropdown.active(href='/dev') Dev
           li.dropdown
-            a.dropdown.active(href='') Docs
+            a.dropdown.active(href='/docs') Docs
     .container
       .jumbotron
         .row
           .col-md-6.col-xs-12
-            h2 User Confirmed!
-            p Read email inbox for instructions.
+            h2 Under Construction
             a.btn.btn-primary.btn-lg.col-md-12.col-xs-12(href='/')
               i.fa.fa-home
               | Home
 
           .col-md-6.col-xs-12
-            h3 Next Steps
-            p Read game rules.
-            p Train yourself.
-            p Invite your friends.
-            p Create challege.
-            p Share your score.
+            h3 Research and Development
+            p Foo
+            p Bar

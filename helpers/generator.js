@@ -30,5 +30,13 @@ var addView =  function(web, route){
   });
 };
 
+//WEB PAGE
+var addPage =  function(web, name){
+  web.get('/' + name, function(req, res){
+    res.render(name + '/index');
+  });
+};
+
 module.exports.addView = addView;
+module.exports.addPage = addPage;
 module.exports.addRoutes = addRoutes;
