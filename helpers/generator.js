@@ -25,15 +25,28 @@ var addRoutes = function(opts){
 
 // WEB
 var addView =  function(web, route){
-  web.get(['/' + route, '/' + route + '/:id', '/' + route + '/new'] , function(req, res){
-    res.render('index/index',{model: route, id: req.params.id});
-  });
+  web.get(
+    ['/' + route,
+     '/' + route +
+     '/:id',
+     '/' + route +
+     '/new'] ,
+    function(req, res){
+      res.render('index/index', {
+        model: route,
+        id: req.params.id,
+        site: require('../config.json').site
+      });
+    }
+  );
 };
 
 //WEB PAGE
 var addPage =  function(web, name){
   web.get('/' + name, function(req, res){
-    res.render(name + '/index');
+    res.render(name + '/index', {
+      site: require('../config.json').site
+    });
   });
 };
 

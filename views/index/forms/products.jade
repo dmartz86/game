@@ -14,13 +14,6 @@ form.form-horizontal.ng-cloak(name="modelForm")
       .col-md-10
         input.form-control(type='number', ng-model='$parent.edit.price')
     .form-group
-      label.col-md-2.control-label Sizes
-      .col-md-10
-        a.btn.col-md-1(ng-click='toggle(s, "t")',
-          ng-class='{"btn-default": !s.t, "btn-primary": s.t}',
-          ng-repeat='s in commons.sizes')
-          span.bage.bage-primary(ng-bind='s.v')
-    .form-group
       label.col-md-2.control-label Image
       .col-md-10
         input.form-control(type='url', ng-model='$parent.edit.image')

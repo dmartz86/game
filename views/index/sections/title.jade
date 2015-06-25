@@ -1,11 +1,12 @@
-.row.ng-cloak
+.row
   .col-md-3.col-xs-12
     h3(ng-bind='"List: " + model')
-  .col-md-9.col-xs-12
-    .col-xs-12.col-md-9
-      include alerts
-    .col-xs-12.col-md-3
-      a.col-md-12.btn.btn-success.pull-right#addLink(
-        ng-click='',
-        ng-href='/{{model}}/new')
-        i.glyphicon.glyphicon-plus &nbsp;New
+  .col-xs-12.col-sm-12.col-md-9
+    .row
+      .col-xs-12.col-sm-12.col-md-9
+        include alerts
+      .col-xs-12.col-sm-12.col-md-3
+        a.col-xs-12.col-sm-12.btn.btn-success.pull-right#addLink(
+          ng-click='',
+          ng-href='/{{model}}/new')
+          i.glyphicon.glyphicon-plus &nbsp;New

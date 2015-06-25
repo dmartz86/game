@@ -4,7 +4,6 @@ var web = express();
 var svr = require('http').createServer(web);
 var sio = require('socket.io')(svr);
 var generator = require('../helpers/generator');
-var site = require('../config.json').site;
 var pages = require('../config.json').pages;
 var resources = require('../config.json').resources;
 
@@ -30,7 +29,7 @@ for(var p in pages){
 
 // main
 web.get('/', function(req, res){
-  res.render('index/index', {site: site});
+  res.render('index/index', {site: require('../config.json').site});
 });
 
 module.exports.web = web;
