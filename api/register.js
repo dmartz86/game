@@ -17,7 +17,7 @@ var addUser = function(email, cb){
       sendM({
         html:
 '<div>' +
-  '<h1>Welcome to ' + config.appname + '</h1>' +
+  '<h1>Welcome to ' + config.site + '</h1>' +
   '<p>' +
     'Open link ' +
     '<a href="' + config.URL.BASE + config.URL.ACK + code + '">Confirm Email</a>' +
@@ -25,7 +25,7 @@ var addUser = function(email, cb){
   '</p>' +
 '</div>',
         text: 'Email Confirmation',
-        subject: 'Registry - ' + config.appname + '',
+        subject: 'Registry - ' + config.site + '',
         email: email,
         name: email,
         tags: ['register']
@@ -61,7 +61,7 @@ var confirmEmail = function(code, cb){
   '<p>' + text + '</p>' +
 '</div>',
               text: 'Access Confirm',
-              subject: 'First Time Access - ' + config.appname + '',
+              subject: 'First Time Access - ' + config.site + '',
               email: user.email,
               name: user.email,
               tags: ['autopwd']
