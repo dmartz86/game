@@ -1,7 +1,7 @@
 var ps = require('../helpers/ps');
 var sio = require('../web/routes').sio;
 var conf = require('../config.json');
-var example = require('./example');
+var events = require('./events');
 
 var listen = function(cb){
   var users = 0;
@@ -11,13 +11,13 @@ var listen = function(cb){
 
     socket.on('identify', function (token) {
       socket.token = token;
-      example.roles(token, function(err, roles){
+      events.roles(token, function(err, roles){
         socket.emit('roles', roles);
       });
     });
 
     socket.on('getUsers', function(){
-      example.users(socket.token, function(err, users){
+      events.users(socket.token, function(err, users){
         socket.emit('users', users);
       });
     });
