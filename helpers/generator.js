@@ -27,10 +27,7 @@ var addRoutes = function(opts){
 var addView =  function(web, route){
   web.get(
     ['/' + route,
-     '/' + route +
-     '/:id',
-     '/' + route +
-     '/new'] ,
+     '/' + route + '/:id', '/' + route + '/new'] ,
     function(req, res){
       res.render('index/index', {
         model: route,
