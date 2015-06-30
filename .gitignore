@@ -3,3 +3,5 @@ public/application.min.js
 public/application.min.css
 public/fonts
 public/vendor
+reports
+coverage
