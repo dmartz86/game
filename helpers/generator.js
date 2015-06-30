@@ -1,6 +1,7 @@
 // references
 var Zappy = require('../helpers/zappy').Zappy;
-var AV    = require('../config.json').APIVARS;
+var site = require('../config.json').site;
+var AV = require('../config.json').APIVARS;
 
 // API
 var addRoutes = function(opts){
@@ -32,7 +33,7 @@ var addView =  function(web, route){
       res.render('index/index', {
         model: route,
         id: req.params.id,
-        site: require('../config.json').site
+        site: site
       });
     }
   );
@@ -41,9 +42,7 @@ var addView =  function(web, route){
 //WEB PAGE
 var addPage =  function(web, name){
   web.get('/' + name, function(req, res){
-    res.render(name + '/index', {
-      site: require('../config.json').site
-    });
+    res.render(name + '/index', { site: site });
   });
 };
 
