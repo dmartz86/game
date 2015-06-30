@@ -1,0 +1,21 @@
+.row(ng-show='isPaused')
+  .col-md-12.col-xs-12
+    table.table.text-center
+      thead
+        tr
+          th(colspan='4') Active Challenges
+      tbody
+        tr(ng-repeat='e in challenges')
+          td.td-zero.success
+            div(ng-hide='e == challenge')
+              a.btn-play.btn-table.btn.btn-success(ng-click='setChallenge(e)')
+                i.fa.fa-chevron-circle-right
+          th(ng-class='{"info": (e!=challenge), "success": (e==challenge)}')
+            span(ng-bind='e.desc')
+          td.success
+            i.fa.fa-users &nbsp;3 /39
+          td.td-zero.success
+            div(ng-show='e.start')
+              a.btn-play.btn-table.btn.btn-success(ng-click='revealIcons(e)',
+                data-toggle="modal", data-target="#iconsModal")
+                i.fa.fa-eye

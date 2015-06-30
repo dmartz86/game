@@ -1,0 +1,10 @@
+.row
+  table.table.text-center
+    thead
+      tr
+        th(colspan='2') User Scores
+    tbody
+      tr(ng-repeat="user in users")
+        td {{user.email}}
+        td
+          i.fa.fa-diamond &nbsp; {{user.diamonds || 0}}

@@ -1,0 +1,26 @@
+.row(ng-if='challenge')
+  .col-md-12.col-xs-12
+    table.table.text-center
+      tbody
+        tr
+          td.info
+            i.fa.fa-server &nbsp;
+              span(ng-bind='challenge.name')
+          td.success
+            span &nbsp; {{level}} /12
+          td.info
+            i.fa.fa-diamond &nbsp;
+              span(ng-bind='gems')
+          td(ng-class='status')
+            i.fa.fa-clock-o &nbsp;
+              span(ng-bind='time')
+          td.td-zero.success(ng-if='status=="active"')
+            a.btn-play.btn-table.btn.btn-success(ng-click='act("play")')
+              i.fa.fa-play
+          td.td-zero.active(ng-if='status=="warning"')
+            a.btn-play.btn-table.btn.btn-warning(ng-click='act("pause")')
+              i.fa.fa-pause
+          td.td-zero.active(ng-if='status=="danger"')
+            a.btn-play.btn-table.btn.btn-warning(ng-click='act("play")')
+              i.fa.fa-circle-o-notch
+

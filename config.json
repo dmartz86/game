@@ -1,6 +1,6 @@
 {
   "dburl": "mongodb://127.0.0.1/decktools",
-  "site": "Deck App",
+  "site": "Match Game",
   "port": {
     "web": 1344,
     "api": 1345,
@@ -84,6 +84,9 @@
         "image": 1,
         "comments": 1
       }
-    }
+    },
+    "levels": { "admin": true, "param": "level", "exclude": true },
+    "challenges": { "admin": true, "param": "challenge", "exclude": true },
+    "history": { "admin": true, "param": "history", "exclude": true }
   }
 }
