@@ -38,14 +38,11 @@ window.app.controller('GameCtrl',
       case 'pause':
         $scope.isPaused = true;
         $scope.status = 'danger';
-        if (angular.isDefined(checkForTimeInt)){
-          $interval.cancel(checkForTimeInt);
-          checkForTimeInt = false;
-        }
-        clearInterval(checkForTimeInt);
+        destroyTimer();
         $scope.reset();
         break;
       case 'stop':
+        destroyTimer();
         $scope.time = 0;
         $scope.isPaused = true;
         $scope.status = 'active';
@@ -130,6 +127,14 @@ window.app.controller('GameCtrl',
     }, 1000);
   };
 
+  var destroyTimer = function(){
+    if (angular.isDefined(checkForTimeInt)){
+      $interval.cancel(checkForTimeInt);
+      checkForTimeInt = false;
+    }
+    clearInterval(checkForTimeInt);
+  };
+
   var printIcons = function(start, end){
     var icons = [];
     for(var i=start; i<end;i++){
@@ -173,7 +178,6 @@ window.app.controller('GameCtrl',
   });
 
   socket.on('level', function (level) {
-    console.log(level.board);
     $scope.board = level.board;
   });
 
