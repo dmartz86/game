@@ -71,7 +71,7 @@ var done = function(socket, cb){
       challenge: socket.data.challenge._id
     };
     var doc = {$inc: {gems: genGem}};
-    db.metrics.Update(query, doc, {upsert: true}});
+    db.metrics.Update(query, doc, {upsert: true});
 
   });
 };
