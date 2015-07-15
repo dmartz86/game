@@ -3,17 +3,19 @@
     table.table.text-center
       thead
         tr
-          th(colspan='4') Active Challenges
+          th(colspan='4') Public Challenges
       tbody
         tr(ng-repeat='e in challenges')
           td.td-zero.success
             div(ng-hide='e == challenge')
               a.btn-play.btn-table.btn.btn-success(ng-click='setChallenge(e)')
-                i.fa.fa-chevron-circle-right
+                i.fa.fa-plus-circle
           th(ng-class='{"info": (e!=challenge), "success": (e==challenge)}')
             span(ng-bind='e.desc')
           td.success
             i.fa.fa-users &nbsp;{{e.users || 0}}
+          td.success
+            i.fa.fa-bars &nbsp;{{e.length || 0}}
           td.td-zero.success
             div(ng-show='e.start')
               a.btn-play.btn-table.btn.btn-success(ng-click='revealIcons(e)',

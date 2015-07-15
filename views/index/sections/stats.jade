@@ -7,7 +7,7 @@
             i.fa.fa-server &nbsp;
               span(ng-bind='challenge.name')
           td.success
-            span &nbsp; {{level}} /12
+            span &nbsp; {{level}} /{{challenge.length}}
           td.info
             i.fa.fa-diamond &nbsp;
               span(ng-bind='gems')
@@ -23,4 +23,3 @@
           td.td-zero.active(ng-if='status=="danger"')
             a.btn-play.btn-table.btn.btn-warning(ng-click='act("play")')
               i.fa.fa-circle-o-notch
-

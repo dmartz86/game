@@ -13,6 +13,9 @@ var listen = function(cb) {
 
     socket.on('identify', function (token) {
       socket.token = token;
+
+      events.activity(socket, function(){});
+
       events.challenges(socket, function(err, challenges){
         socket.emit('challenges', challenges);
       });
@@ -34,8 +37,15 @@ var listen = function(cb) {
       });
     });
 
-    socket.on('setChallenge', function(e) {
-      // console.log('active challenge', e);
+    socket.on('activity', function() {
+      events.activity(socket, function(){});
+    });
+
+    socket.on('done', function(data) {
+      socket.data = data;
+      events.done(socket, function(err, levels){
+        socket.emit('info', {gems: 23});
+      });
     });
 
     socket.on('play', function(challenge){

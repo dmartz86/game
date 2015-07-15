@@ -8,7 +8,7 @@ window.app.controller('GameController',
   $scope.challenge = false;
   $scope.gems = 0;
   $scope.time = 60;
-  $scope.level = 1;
+  $scope.level = 0;
   $scope.peer = [];
   $scope.icons = [];
   $scope.board = [];
@@ -18,7 +18,7 @@ window.app.controller('GameController',
   $scope.wins = 0;
   $scope.loss = 0;
   $scope.done = false;
-  $scope.metrics = {users: 0};
+  $scope.metrics = {users: 0, activity: []};
   var interval = false;
   var tape = 9641;
 
@@ -51,6 +51,11 @@ window.app.controller('GameController',
       case 'done':
         $scope.gems += 1;
         $scope.level += 1;
+        socket.emit('done', {
+          challenge: angular.copy($scope.challenge),
+          time: angular.copy($scope.time),
+          level: angular.copy($scope.level)
+        });
         $scope.act('stop');
         break;
       default:
@@ -164,12 +169,14 @@ window.app.controller('GameController',
   //socket io events
   socket.on('info', function (data) {
     $timeout(function(){
-      //TODO. status board
-      if(data.join){
-
+      if(data.gems){
+        $scope.gems = data.gems;
       }
       if(data.users){
         $scope.users = data.users;
+      }
+      if(data.activity){
+        $scope.metrics.activity = data.activity;
       }
     }, 1);
   });
@@ -187,8 +194,16 @@ window.app.controller('GameController',
   });
 
   socket.on('level', function (level) {
-    $scope.board = level.board;
-    timer();
+    $timeout(function(){
+      if (!level){
+        $scope.error = 'Level not found';
+        return ;
+      }
+
+      $scope.board = level.board;
+      $scope.level = level.number;
+      timer();
+    }, 1);
   });
 
   socket.on('levels', function (levels) {
