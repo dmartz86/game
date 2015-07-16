@@ -127,7 +127,7 @@ window.app.controller('GameController',
 
   var checkForTimeInt = false;
   var timer = function(){
-    checkForTimeInt = $interval(function(){
+    checkForTimeInt = checkForTimeInt || $interval(function(){
       if($scope.time>0){
         $scope.time -= 1;
       }else{
