@@ -18,6 +18,7 @@ window.app.controller('GameController',
   $scope.wins = 0;
   $scope.loss = 0;
   $scope.done = false;
+  $scope.chapter = 'game';
   $scope.metrics = {users: 0, activity: []};
   var interval = false;
   var tape = 9641;
@@ -102,6 +103,10 @@ window.app.controller('GameController',
   $scope.reset = function(){
     $scope.peer = [];
     $scope.peerIdx = [];
+  };
+
+  $scope.setChapter = function (chapter) {
+    $scope.chapter = chapter;
   };
 
   var addOne = function (idx){

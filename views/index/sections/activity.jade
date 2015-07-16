@@ -1,28 +1,24 @@
 .row
-  .col-md-12.col-xs-12
-    table.table.text-center
-      thead
-        tr
-          th(colspan='4') My Activity
-      tbody
-        tr(ng-repeat='challenge in metrics.activity')
-          td.success
-            i.fa.fa-bars &nbsp;
-              span(ng-bind='challenge.challenge')
-          td.info
-            i.fa.fa-bars &nbsp;
-              span(ng-bind='challenge.level || 0')
-          td.info
-            i.fa.fa-time &nbsp;
-              span(ng-bind='challenge.time || 0')
-          td.info
-            i.fa.fa-server &nbsp;
-              span(ng-bind='challenge.name || 0')
-          td.info
-            i.fa.fa-diamond &nbsp;
-              span(ng-bind='challenge.gems || 0')
+  table.table.text-center
+    thead
+      tr
+        th(colspan='4') My Activity
+    tbody
+      tr(ng-repeat='challenge in metrics.activity')
+        td.success
+          i.fa.fa-bars &nbsp;
+            span(ng-bind='challenge.level || 0')
+        td.info
+          i.fa.fa-time &nbsp;
+            span(ng-bind='challenge.time || 0')
+        td.info
+          i.fa.fa-server &nbsp;
+            span(ng-bind='challenge.name || 0')
+        td.info
+          i.fa.fa-diamond &nbsp;
+            span(ng-bind='challenge.gems || 0')
 
-      tfoot(ng-show='!metrics.activity.length')
-        tr
-          td
-            span.text-center You have no activity to show
+    tfoot(ng-show='!metrics.activity.length')
+      tr
+        td
+          span.text-center You have no activity to show
