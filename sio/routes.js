@@ -14,20 +14,22 @@ var listen = function(cb) {
     socket.on('identify', function (token) {
       socket.token = token;
 
-      events.activity(socket, function(){});
+      events.activity(socket, function(err, activity){
+        socket.emit('info', {activity: activity});
+      });
 
       events.challenges(socket, function(err, challenges){
         socket.emit('challenges', challenges);
       });
 
-      events.users(socket, function(err, users){
-        socket.emit('info', {users: users});
+      events.metrics(socket, function(err, scores){
+        socket.emit('info', {scores: scores});
       });
     });
 
-    socket.on('getUsers', function(){
-      events.users(socket, function(err, users) {
-        socket.emit('users', users);
+    socket.on('score', function(){
+      events.metrics(socket, function(err, scores) {
+        socket.emit('info', {scores: scores});
       });
     });
 
@@ -38,31 +40,51 @@ var listen = function(cb) {
     });
 
     socket.on('activity', function() {
-      events.activity(socket, function(){});
-    });
-
-    socket.on('done', function(data) {
-      events.done({token: socket.token, challenge: data}, function(err, levels){
-        socket.emit('info', {gems: 24});
+      events.activity(socket, function(err, activity){
+        socket.emit('info', {activity: activity});
       });
     });
 
-    socket.on('play', function(challenge){
-      //TODO: validChallenge?
+    socket.on('anchor', function(e) {
+       socket.anchor = e.id;
+    });
+
+    socket.on('done', function(data) {
+      events.anchor(socket, function(err, challenge){ 
+        data.token = socket.token;
+        data.challenge = challenge;
+        events.done(data, function(err, done){
+          events.metrics(socket, function(err, scores) {
+            socket.emit('info', {scores: scores});
+          });
+
+          events.activity(socket, function(err, activity){
+            socket.emit('info', {activity: activity});
+          });
+        });
+      });
+    });
+
+    socket.on('play', function(data){
       if(socket.curRoom){
         socket.leave(socket.curRoom);
       }
 
-      socket.curRoom = challenge._id;
+      socket.curRoom = data.challenge._id;
+      data.token = socket.token;
 
       events.changes({
         socket: socket,
         sio: sio,
-        name: challenge._id
+        name: data.challenge._id
       });
 
-      events.current(socket, function(err, level){
-        socket.emit('level', level);
+      //read properly the level number
+      events.match(socket, function(err, number){
+        data.level = number;
+        events.play(data, function(err, level){
+          socket.emit('level', level);
+        });
       });
     });
 

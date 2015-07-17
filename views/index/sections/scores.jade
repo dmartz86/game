@@ -2,9 +2,14 @@
   table.table.text-center
     thead
       tr
-        th(colspan='2') User Scores
+        th(colspan='3') User Scores
     tbody
-      tr(ng-repeat="user in users")
-        td {{user.email}}
+      tr(ng-repeat="s in scores")
+        td {{s.email}}
+        td {{s.name}}
         td
-          i.fa.fa-diamond &nbsp; {{user.diamonds || 0}}
+          i.fa.fa-diamond &nbsp; {{s.gems || 0}}
+    tfoot(ng-show='!scores.length')
+      tr
+        td
+          span.text-center There is no score to show

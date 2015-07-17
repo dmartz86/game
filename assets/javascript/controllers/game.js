@@ -8,7 +8,7 @@ window.app.controller('GameController',
   $scope.challenge = false;
   $scope.gems = 0;
   $scope.time = 60;
-  $scope.level = 0;
+  $scope.level = 1;
   $scope.peer = [];
   $scope.icons = [];
   $scope.board = [];
@@ -19,7 +19,8 @@ window.app.controller('GameController',
   $scope.loss = 0;
   $scope.done = false;
   $scope.chapter = 'game';
-  $scope.metrics = {users: 0, activity: []};
+  $scope.scores = [];
+  $scope.activity = [];
   var interval = false;
   var tape = 9641;
 
@@ -33,8 +34,10 @@ window.app.controller('GameController',
         $scope.isPaused = false;
         $scope.time = 60;
         $scope.status = 'warning';
-        //timer();
-        socket.emit('play',angular.copy($scope.challenge));
+        socket.emit('play', {
+          challenge: angular.copy($scope.challenge),
+          level: angular.copy($scope.level)
+        });
         break;
       case 'pause':
         $scope.isPaused = true;
@@ -55,6 +58,7 @@ window.app.controller('GameController',
         socket.emit('done', {
           challenge: angular.copy($scope.challenge),
           time: angular.copy($scope.time),
+          board: angular.copy($scope.board),
           level: angular.copy($scope.level)
         });
         $scope.act('stop');
@@ -76,7 +80,7 @@ window.app.controller('GameController',
   $scope.setChallenge = function(challenge){
     $scope.act('stop');
     $scope.challenge = challenge;
-    socket.emit('setChallenge',{challenge: angular.copy(challenge)});
+    socket.emit('anchor',{id: challenge._id});
   };
 
   $scope.attempt =  function(idx) {
@@ -163,10 +167,6 @@ window.app.controller('GameController',
     }
 
     if (done){
-      socket.emit('done', {
-        board: $scope.board,
-        time: $scope.time
-      });
       $scope.act('done');
     }
   };
@@ -177,11 +177,11 @@ window.app.controller('GameController',
       if(data.gems){
         $scope.gems = data.gems;
       }
-      if(data.users){
-        $scope.users = data.users;
+      if(data.scores){
+        $scope.scores = data.scores;
       }
       if(data.activity){
-        $scope.metrics.activity = data.activity;
+        $scope.activity = data.activity;
       }
     }, 1);
   });

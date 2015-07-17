@@ -7,7 +7,6 @@ var testUser = {
   email: 'daniel@monoapps.co',
   status: 1,
   date: new Date().getTime(),
-  text: complex,
   admin: true
 };
 
@@ -17,7 +16,7 @@ models.users.Insert(testUser, function(err, users) {
   var user = users[0];
   var options = {
     key: user._id.toString(),
-    text: testUser.text || utils.createUUID()
+    text: utils.createUUID()
   };
 
   utils.createPwd(options, function(pwd, passphrase) {
