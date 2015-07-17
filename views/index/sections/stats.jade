@@ -1,6 +1,6 @@
 .row(ng-if='challenge')
   table.table.text-center
-    thead
+    thead(ng-hide='status=="warning"')
       tr
         th(colspan='4') Current Challenge
     tbody

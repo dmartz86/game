@@ -53,22 +53,22 @@ var changes = function(opts){
   opts.socket.broadcast.to('match').emit('join', msg);
 };
 
-var done = function(socket, cb){
-  review({ req: {params: {token: socket.token} }, res: {} }, function(err, opt){
+var done = function(data, cb){
+  review({ req: {params: {token: data.token} }, res: {} }, function(err, opt){
 
     var genGem = 1; //TODO: add funtion to generate gems based on time
     db.history.Insert({
       user: opt.user._id,
-      challenge: socket.data.challenge._id,
-      time: socket.data.time,
+      challenge: data.challenge._id,
+      time: data.time,
       date: new Date().getTime(),
-      level: socket.data.level,
+      level: data.level,
       gems: genGem
     });
 
     var query = {
       user: opt.user._id,
-      challenge: socket.data.challenge._id
+      challenge: data.challenge._id
     };
     var doc = {$inc: {gems: genGem}};
     db.metrics.Update(query, doc, {upsert: true});

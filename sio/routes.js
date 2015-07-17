@@ -42,9 +42,8 @@ var listen = function(cb) {
     });
 
     socket.on('done', function(data) {
-      socket.data = data;
-      events.done(socket, function(err, levels){
-        socket.emit('info', {gems: 23});
+      events.done({token: socket.token, challenge: data}, function(err, levels){
+        socket.emit('info', {gems: 24});
       });
     });
 
