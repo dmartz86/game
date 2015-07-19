@@ -30,11 +30,13 @@ var levels = function(socket, cb){
 var play = function(data, cb){
   review({ req: {params: {token: data.token} }, res: {} }, function(err, opt){
     var ch = data.challenge;
-    var query = {range: ch.start + '::' + ch.end, number: (data.level+1)};
+    var query = {range: ch.start + '::' + ch.end, number: (data.number + 1)};
 
     db.levels.FindOne(query, function(err, rsp){
       if (rsp) {
         rsp.board = shuffle(rsp.board);
+        rsp.timestamp = new Date().getTime();
+
         cb(err, rsp);
       } else {
         cb('Level not found.', false);
@@ -59,17 +61,25 @@ var changes = function(opts){
 
 var done = function(data, cb){
   review({ req: {params: {token: data.token} }, res: {} }, function(err, opt){
+    var calc = require('../helpers/calculator');
+    var now = new Date().getTime();
+    var init = data.level.timestamp;
+    var real = now - init;
+    var amount = calc(real/1000);
+    var doc = {$inc: {gems: amount, level: 1}};
 
-    var amount = 1; //TODO: add funtion to generate gems based on time
-    db.history.Insert({
+    var resume = {
       user: opt.user._id.toString(),
       name: data.challenge.name,
       challenge: data.challenge._id.toString(),
       time: data.time,
-      date: new Date().getTime(),
-      level: data.level,
+      mili: init,
+      level: data.level._id.toString(),
+      real: real,
+      date: now,
+      number: data.level.number,
       gems: amount
-    });
+    };
 
     var query = {
       user: opt.user._id.toString(),
@@ -77,7 +87,8 @@ var done = function(data, cb){
       challenge: data.challenge._id.toString()
     };
 
-    var doc = {$inc: {gems: amount, level: 1}};
+    db.history.Insert(resume);
+
     db.metrics.Update(query, doc, {upsert: true}), function(err, ack){
       cb(err, true);
     };

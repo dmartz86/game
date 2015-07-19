@@ -52,15 +52,22 @@ var listen = function(cb) {
     socket.on('done', function(data) {
       events.anchor(socket, function(err, challenge){ 
         data.token = socket.token;
+        data.level = socket.level;
         data.challenge = challenge;
         events.done(data, function(err, done){
-          events.metrics(socket, function(err, scores) {
-            socket.emit('info', {scores: scores});
-          });
 
           events.activity(socket, function(err, activity){
             socket.emit('info', {activity: activity});
           });
+
+          events.challenges(socket, function(err, challenges){
+            socket.emit('challenges', challenges);
+          });
+
+          events.metrics(socket, function(err, scores){
+            socket.emit('info', {scores: scores});
+          });
+
         });
       });
     });
@@ -81,8 +88,9 @@ var listen = function(cb) {
 
       //read properly the level number
       events.match(socket, function(err, number){
-        data.level = number;
+        data.number = number;
         events.play(data, function(err, level){
+          socket.level = level;
           socket.emit('level', level);
         });
       });
