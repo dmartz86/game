@@ -9,10 +9,8 @@
           i.fa.fa-server &nbsp;
             span(ng-bind='challenge.name')
         td.success
-          span &nbsp; {{level}} /{{challenge.length}}
-        td.info
-          i.fa.fa-diamond &nbsp;
-            span(ng-bind='gems')
+          i.fa.fa-line-chart &nbsp;
+            span &nbsp; {{level}} /{{challenge.length}}
         td(ng-class='status')
           i.fa.fa-clock-o &nbsp;
             span(ng-bind='time')

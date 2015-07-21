@@ -1,4 +1,4 @@
-.row(ng-show='isPaused')
+.row.pre-scrollable(ng-show='isPaused')
   table.table.text-center
     thead
       tr
@@ -9,6 +9,8 @@
           div(ng-hide='e == challenge')
             a.btn-play.btn-table.btn.btn-success(ng-click='setChallenge(e)')
               i.fa.fa-check
+        td(ng-class='{"info": (e!=challenge), "success": (e==challenge)}')
+          i.fa.fa-server &nbsp;{{e.name}}
         th(ng-class='{"info": (e!=challenge), "success": (e==challenge)}')
           span(ng-bind='e.desc')
         td.success

@@ -2,6 +2,15 @@ var db = require('../helpers/models');
 var shuffle = require('../helpers/utils').shuffle;
 var review = require('../helpers/manager').review;
 
+var _clean = function(scores) {
+  for (var c in scores){
+    if(scores.hasOwnProperty(c)){
+      scores[c].email = scores[c].email.split('@')[0];
+    }
+  }
+  return scores;
+};
+
 var metrics = function(socket, cb) {
   review(
     { req:
@@ -9,9 +18,9 @@ var metrics = function(socket, cb) {
       res: {}
     }, function(err, opt) {
       db.metrics.Find({}, function(err, rsp){
-        cb(err, rsp);
+        cb(err, _clean(rsp));
       },
-      {email: 1, gems: 1},
+      {email: 1, gems: 1, name: 1, level: 1},
       {w: 1},
       1000,
       {gems: 1}
@@ -66,7 +75,8 @@ var done = function(data, cb){
     var init = data.level.timestamp;
     var real = now - init;
     var amount = calc(real/1000);
-    var doc = {$inc: {gems: amount, level: 1}};
+    var record = {$inc: {gems: amount, level: 1}};
+    var reset = {$set: {level: 0}, $inc: {gems: amount}};
 
     var resume = {
       user: opt.user._id.toString(),
@@ -84,14 +94,25 @@ var done = function(data, cb){
     var query = {
       user: opt.user._id.toString(),
       email: opt.user.email,
+      name: data.challenge.name,
       challenge: data.challenge._id.toString()
     };
 
     db.history.Insert(resume);
 
-    db.metrics.Update(query, doc, {upsert: true}), function(err, ack){
-      cb(err, true);
-    };
+    if (data.challenge.length === (data.level.number)) {
+      db.metrics.Update(query, reset, {upsert: true}, function(err, ack) {
+        query.ts = now;
+        query.date = new Date(now).toUTCString();
+        db.completed.Insert(query);
+        cb(err, true);
+      });
+    } else {
+      db.metrics.Update(query, record, {upsert: true}, function(err, ack) {
+        cb(err, true);
+      });
+    }
+
   });
 };
 
@@ -104,6 +125,17 @@ var activity = function(socket, cb){
     );
   });
 };
+
+var completed = function(socket, cb){
+  review({ req: {params: {token: socket.token} }, res: {} }, function(err, opt){
+    db.completed.Find({user: opt.user._id.toString()},
+      function(err, results){
+        cb(err, results);
+      }
+    );
+  });
+};
+
 
 var anchor = function(socket, cb){
   review({ req: {params: {token: socket.token} }, res: {} }, function(err, opt){
@@ -134,4 +166,5 @@ module.exports.levels = levels;
 module.exports.changes = changes;
 module.exports.metrics = metrics;
 module.exports.activity = activity;
+module.exports.completed = completed;
 module.exports.challenges = challenges;

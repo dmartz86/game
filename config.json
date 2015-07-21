@@ -90,7 +90,18 @@
          "user": 1,
          "gems": 1
        }
-
+    },
+    "completed": {
+      "admin": true,
+      "param": "history",
+      "exclude": true,
+       "schema": {
+         "challenge": 1,
+         "user": 1,
+         "date": 1,
+         "email": 1
+       }
     }
+
   }
 }

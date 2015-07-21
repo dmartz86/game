@@ -183,6 +183,9 @@ window.app.controller('GameController',
       if(data.activity){
         $scope.activity = data.activity;
       }
+      if(data.completed){
+        $scope.completed = data.completed;
+      }
     }, 1);
   });
 

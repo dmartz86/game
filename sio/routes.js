@@ -25,6 +25,10 @@ var listen = function(cb) {
       events.metrics(socket, function(err, scores){
         socket.emit('info', {scores: scores});
       });
+
+      events.completed(socket, function(err, records){
+        socket.emit('info', {completed: records});
+      });
     });
 
     socket.on('score', function(){
