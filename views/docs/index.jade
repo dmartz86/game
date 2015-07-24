@@ -18,18 +18,34 @@ include ../layouts/app
           li.dropdown
             a.dropdown.active(href='') Docs
     .container
+      .col-md-12.col-sm-12.col-xs-12
+        .col-md-6.col-sm-6.col-xs-12
+          h5 Rules
+          div Select a challenge.
+          div Start playing the first level.
+          div Match each pair in the board.
+          div Complete the level.
+          div Passing a level give you gems.
+          div Complete all levels of a challenge.
+          div View sum of gems per challenge.
+          div View your completed challenges.
+ 
+        .col-md-6.col-sm-6.col-xs-12
+          h5 Time and gems table
+          include table
+
       .col-md-6.col-sm-6.col-xs-12
-        h4.col-md-12 1. Choose a Challenge
+        h5.col-md-12 1. Choose a Challenge
         img.img-thumbnail(src='/images/current_challenge.png')
 
       .col-md-6.col-sm-6.col-xs-12
-        h4.col-md-12 2. Play
+        h5.col-md-12 2. Play
         img.img-thumbnail(src='/images/action.png')
 
       .col-md-6.col-sm-6.col-xs-12
-        h4.col-md-12 3. View Activity
+        h5.col-md-12 3. View Activity
         img.img-thumbnail(src='/images/activity.png')
 
       .col-md-6.col-sm-6.col-xs-12
-        h4.col-md-12 4. Compare Scores
+        h5.col-md-12 4. Compare Scores
         img.img-thumbnail(src='/images/scores.png')

@@ -4,7 +4,7 @@
       tr
         th(colspan='4') My Activity
     tbody
-      tr(ng-repeat='a in activity')
+      tr(ng-repeat='a in activity | orderBy: "-number"')
         td.info
           i.fa.fa-server &nbsp;
             span(ng-bind='a.name || 0')
