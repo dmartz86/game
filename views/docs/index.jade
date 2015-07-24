@@ -1,29 +1,51 @@
 include ../layouts/app
   head
     title Documentation
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='#{site}')
+    meta(name='author', content='#{site}')
     link(rel="icon" href="/img/favicon.ico")
     link(rel='stylesheet', href='/themes/paper.min.css')
   body
     .navbar.navbar-default
       .navbar-header
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-        a.navbar-brand(href='/') Documentation
+        a.navbar-brand(href='/') #{site}
       .navbar-collapse.collapse.navbar-responsive-collapse
         ul.nav.navbar-nav.navbar-right
           li.dropdown
-            a.dropdown.active(href='/dev') Dev
-          li.dropdown
-            a.dropdown.active(href='/docs') Docs
+            a.dropdown.active(href='') Docs
     .container
-      .jumbotron
-        .row
-          .col-md-6.col-xs-12
-            h2 Under Construction
-            a.btn.btn-primary.btn-lg.col-md-12.col-xs-12(href='/')
-              i.fa.fa-home
-              | Home
+      .col-md-12.col-sm-12.col-xs-12
+        .col-md-6.col-sm-6.col-xs-12
+          h5 Rules
+          div Select a challenge.
+          div Start playing the first level.
+          div Match each pair in the board.
+          div Complete the level.
+          div Passing a level give you gems.
+          div Complete all levels of a challenge.
+          div View sum of gems per challenge.
+          div View your completed challenges.
+ 
+        .col-md-6.col-sm-6.col-xs-12
+          h5 Time and gems table
+          include table
 
-          .col-md-6.col-xs-12
-            h3 Documentation for App
-            p This is a good place for read docs
-            p Attach videos and books
+      .col-md-6.col-sm-6.col-xs-12
+        h5.col-md-12 1. Choose a Challenge
+        img.img-thumbnail(src='/images/current_challenge.png')
+
+      .col-md-6.col-sm-6.col-xs-12
+        h5.col-md-12 2. Play
+        img.img-thumbnail(src='/images/action.png')
+
+      .col-md-6.col-sm-6.col-xs-12
+        h5.col-md-12 3. View Activity
+        img.img-thumbnail(src='/images/activity.png')
+
+      .col-md-6.col-sm-6.col-xs-12
+        h5.col-md-12 4. Compare Scores
+        img.img-thumbnail(src='/images/scores.png')

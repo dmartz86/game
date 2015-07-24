@@ -3,6 +3,14 @@ window.app.controller('HomeController',['$scope', '$rootScope', '$http', functio
   $scope.token =  window.localStorage.getItem('token');
   $scope.view = 'login';
 
+  $scope.guestLogin = function(){
+    $scope.user = {
+      email: 'guest.match@monoapps.co',
+      password: 'demo#2015'
+    };
+    console.log($scope.user);
+  };
+
   $scope.enableView = function(name){
     $scope.view = name;
     $scope.alert = false;

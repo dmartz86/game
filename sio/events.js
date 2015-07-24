@@ -121,7 +121,11 @@ var activity = function(socket, cb){
     db.history.Find({user: opt.user._id.toString()},
       function(err, activity){
         cb(err, activity);
-      }
+      },
+      {},
+      {w: 1},
+      1000,
+      {number: 1}
     );
   });
 };
